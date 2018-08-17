@@ -10,12 +10,12 @@ require_once(__DIR__ . '/../config/config.php');
 
       <nav class="list list-menu text-center">
         <ul>
-          <li><a href="media.php">メディア</a></li>
-          <li><a href="itemlist.php?cat=ncar">新車</a></li>
-          <li><a href="itemlist.php?cat=ucar">中古車</a></li>
-          <li><a href="itemlist.php?cat=tirewheel">タイヤ＆ホイール</a></li>
-          <li><a href="itemlist.php?cat=caracce">カーアクセサリー</a></li>
-          <li><a href="itemlist.php?cat=carparts">カーパーツ</a></li>
+          <li><a href="admin/media.php">メディア</a></li>
+          <li><a href="admin/itemlist.php?cat=ncar">新車</a></li>
+          <li><a href="admin/itemlist.php?cat=ucar">中古車</a></li>
+          <li><a href="admin/itemlist.php?cat=tirewheel">タイヤ＆ホイール</a></li>
+          <li><a href="admin/itemlist.php?cat=caracce">カーアクセサリー</a></li>
+          <li><a href="admin/itemlist.php?cat=carparts">カーパーツ</a></li>
         </ul>
       </nav>
 

@@ -14,7 +14,8 @@ $headerView = '
 ';
 
 if (
-  $_SERVER['REQUEST_URI'] === '/admin'
+  $_SERVER['REQUEST_URI'] === '/admin' ||
+  $_SERVER['REQUEST_URI'] === '/admin/index.php'
 ):
   $headerView .= '
   <header id="header">
@@ -35,7 +36,12 @@ endif;
 
 if (
   $_SERVER['REQUEST_URI'] === '/admin/item.php' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php'
+  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php' ||
+  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=ncar' ||
+  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=ucar' ||
+  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=tirewheel' ||
+  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=caracce' ||
+  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=carparts'
 ):
 
   $headerView .= '
@@ -46,17 +52,17 @@ if (
 
         <div class="row align-items-center">
           <div class="col-sm-4">
-            <h1><a href="index.php">Car-t 管理画面</a></h1>
+            <h1><a href="/admin">Car-t 管理画面</a></h1>
           </div>
           <div class="col-sm-8">
             <nav>
               <ul class="list-inline">
-                <li class="list-inline-item"><a href="media.php">メディア</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=ncar">新車</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=ucar">中古車</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=tirewheel">タイヤ＆ホイール</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=caracce">カーアクセサリー</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=carparts">カーパーツ</a></li>
+                <li class="list-inline-item"><a href="admin/media.php">メディア</a></li>
+                <li class="list-inline-item"><a href="admin/itemlist.php?cat=ncar">新車</a></li>
+                <li class="list-inline-item"><a href="admin/itemlist.php?cat=ucar">中古車</a></li>
+                <li class="list-inline-item"><a href="admin/itemlist.php?cat=tirewheel">タイヤ＆ホイール</a></li>
+                <li class="list-inline-item"><a href="admin/itemlist.php?cat=caracce">カーアクセサリー</a></li>
+                <li class="list-inline-item"><a href="admin/itemlist.php?cat=carparts">カーパーツ</a></li>
               </ul>
             </nav>
           </div>

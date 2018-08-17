@@ -43,6 +43,7 @@ create table productreview {
 
 create table store {
   store-id int not null auto_increment primary key,
+  store-password varchar(255) unique,
   store-name varchar(100) not null,
   store-exp varchar(255),
 }
