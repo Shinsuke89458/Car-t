@@ -1,0 +1,14 @@
+<?php
+
+ini_set('display_errors', 1);
+
+define('DSN', 'mysql:dbhost=localhost;dbname=cartdb');
+define('DB_USERNAME', 'dbuser');
+define('DB_PASSWORD', 'shin0622');
+
+define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
+
+require_once(__DIR__.'/../app/functions.php');
+require_once(__DIR__.'/autoload.php');
+
+session_start();
