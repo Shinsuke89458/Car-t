@@ -46,7 +46,7 @@ class ImageUploader extends \MyApp\Controller {
       // echo $e->getMessage();
       // exit;
     }
-    header('Location: http://'.$_SERVER['HTTP_HOST']);
+    header('Location: ' . MEDIA);
     exit;
   }
 
@@ -180,6 +180,7 @@ class ImageUploader extends \MyApp\Controller {
   public function getImages() {
     $images = [];
     $files = [];
+
     $imageDir = opendir(IMAGES_DIR);
 
     if ($imageDir):

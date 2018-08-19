@@ -9,9 +9,10 @@ require_once(__DIR__ . '/../config/config.php');
     <div id="contents" class="container">
 
       <form action="" method="post">
+        <p class="cms-thumb"><img src="https://placehold.jp/c9c9c9/ffffff/600×600.png?text=%E3%83%80%E3%83%9F%E3%83%BC%E7%94%BB%E5%83%8F" width="200"></p>
         <div>
-          <p>画像:</p>
-          <p>メディアを選択</p>
+          <p>画像</p>
+          <p><input type="file" name="fname" class="cms-item"></p>
         </div>
         <p>商品名:<br>
           <input type="text" name="ttl" value="商品名１">

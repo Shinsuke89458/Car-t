@@ -1,10 +1,10 @@
 $(function() {
   $('.msg').fadeOut(10000);
-  $('#my_file_area').on('change', function() {
-    $('#my_form_area').submit();
+  $('#imgupload_file_area').on('change', function() {
+    $('#imgupload_form_area').submit();
   });
-  $('#my_file_btn').on('change', function() {
-    $('#my_form_btn').submit();
+  $('#imgupload_file_btn').on('change', function() {
+    $('#imgupload_form_btn').submit();
   });
 });
 

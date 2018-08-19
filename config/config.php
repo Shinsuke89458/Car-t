@@ -9,12 +9,16 @@ define('DB_PASSWORD', 'shin0622');
 
 // SITE
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
+define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
+
+// PATH
+define('MEDIA', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/media.php');
 
 // IMG
 define('MAX_FILE_SIZE', 1 * 1024 * 1024);
 define('THUMBNAIL_WIDTH', 400);
-define('IMAGES_DIR', __DIR__.'/../src/images');
-define('THUMBNAILS_DIR', __DIR__.'/../src/thumbs');
+define('IMAGES_DIR', DOCUMENT_ROOT.'/src/images');
+define('THUMBNAILS_DIR', DOCUMENT_ROOT.'/src/thumbs');
 
 if (!function_exists('imagecreatetruecolor')) {
   echo 'GD not installed';
