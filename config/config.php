@@ -16,7 +16,7 @@ define('MEDIA', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/media.php');
 
 // IMG
 define('MAX_FILE_SIZE', 1 * 1024 * 1024);
-define('THUMBNAIL_WIDTH', 400);
+define('THUMBNAIL_WIDTH', 250);
 define('IMAGES_DIR', DOCUMENT_ROOT.'/src/images');
 define('THUMBNAILS_DIR', DOCUMENT_ROOT.'/src/thumbs');
 

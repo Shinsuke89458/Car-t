@@ -12,23 +12,26 @@ $images = $uploader->getImages();
 
 <?php require(__DIR__ . '/tmp/header.php'); ?>
 
-  <div id="imgupload_form">
+  <div id="imgupload_form_wrap" class="container">
 
-    <div class="area">
-      <p>ここにファイルをドラッグ＆ドロップ</p>
-      <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_area">
-        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
-        <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_area" multiple>
-        <?php /*<input type="submit" value="upload">*/ ?>
-      </form>
-    </div>
-    <div class="btn">
-      Upload!
-      <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_btn">
-        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
-        <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_btn" multiple>
-        <?php /*<input type="submit" value="upload">*/ ?>
-      </form>
+    <div id="imgupload_form" class="imgupload_form">
+        <div class="area">
+          <p>ここにファイルをドラッグ＆ドロップ</p>
+          <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_area">
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
+            <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_area" multiple>
+            <?php /*<input type="submit" value="upload">*/ ?>
+          </form>
+        </div>
+        <p>または</p>
+        <div class="btn">
+          ファイルを選択
+          <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_btn">
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
+            <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_btn" multiple>
+            <?php /*<input type="submit" value="upload">*/ ?>
+          </form>
+        </div>
     </div>
 
     <div class="msg-container">

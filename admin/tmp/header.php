@@ -35,6 +35,7 @@ if (
 endif;
 
 if (
+  $_SERVER['REQUEST_URI'] === '/admin/media.php' ||
   $_SERVER['REQUEST_URI'] === '/admin/item.php' ||
   $_SERVER['REQUEST_URI'] === '/admin/itemlist.php' ||
   $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=ncar' ||
@@ -57,12 +58,12 @@ if (
           <div class="col-sm-8">
             <nav>
               <ul class="list-inline">
-                <li class="list-inline-item"><a href="admin/media.php">メディア</a></li>
-                <li class="list-inline-item"><a href="admin/itemlist.php?cat=ncar">新車</a></li>
-                <li class="list-inline-item"><a href="admin/itemlist.php?cat=ucar">中古車</a></li>
-                <li class="list-inline-item"><a href="admin/itemlist.php?cat=tirewheel">タイヤ＆ホイール</a></li>
-                <li class="list-inline-item"><a href="admin/itemlist.php?cat=caracce">カーアクセサリー</a></li>
-                <li class="list-inline-item"><a href="admin/itemlist.php?cat=carparts">カーパーツ</a></li>
+                <li class="list-inline-item"><a href="media.php">メディア</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat=ncar">新車</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat=ucar">中古車</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat=tirewheel">タイヤ＆ホイール</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat=caracce">カーアクセサリー</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat=carparts">カーパーツ</a></li>
               </ul>
             </nav>
           </div>
