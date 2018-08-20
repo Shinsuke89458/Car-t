@@ -18,7 +18,7 @@ $images = $uploader->getImages();
         <div class="area">
           <p>ここにファイルをドラッグ＆ドロップ</p>
           <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_area">
-            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE); ?>">
             <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_area" multiple>
             <?php /*<input type="submit" value="upload">*/ ?>
           </form>
@@ -27,7 +27,7 @@ $images = $uploader->getImages();
         <div class="btn">
           ファイルを選択
           <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_btn">
-            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE); ?>">
             <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_btn" multiple>
             <?php /*<input type="submit" value="upload">*/ ?>
           </form>
@@ -36,18 +36,18 @@ $images = $uploader->getImages();
 
     <div class="msg-container">
       <?php if (isset($success)): ?>
-        <div class="msg success"><?php echo $success; ?></div>
+        <div class="msg success"><?= $success; ?></div>
       <?php endif; ?>
       <?php if (isset($error)): ?>
-        <div class="msg error"><?php echo $error; ?></div>
+        <div class="msg error"><?= $error; ?></div>
       <?php endif; ?>
     </div>
 
     <ul class="grid clearfix">
       <?php foreach ($images as $image): ?>
         <li class="gird-item">
-          <a href="<?php echo h(SITE_URL.'/src/images/'.basename($image)); ?>">
-            <img src="<?php echo h(SITE_URL.'/src/'.$image); ?>" alt="">
+          <a href="<?= h(SITE_URL.'/src/images/'.basename($image)); ?>">
+            <img src="<?= h(SITE_URL.'/src/'.$image); ?>" alt="">
           </a>
         </li>
       <?php endforeach; ?>

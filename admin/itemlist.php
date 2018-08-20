@@ -8,6 +8,16 @@ require_once(__DIR__ . '/../config/config.php');
 
     <div id="contents" class="container">
 
+      <div class="row heading-post">
+        <h2 class="col-sm-10">投稿一覧<?= '('.h($_GET['cat']).')'; ?></h2>
+        <div class="col-sm-2">
+          <div class="float-right">
+            <p><a href="item.php?cat=<?= h($_GET['cat']); ?>" class="btn btn-dark">新規追加</a></p>
+          </div>
+        </div>
+      </div>
+
+
       <ul class="list list-product">
         <li class="row align-items-center">
           <div class="col-sm-3">

@@ -64,6 +64,10 @@ textarea {
     color: #f00;
 }
 
+.heading-post {
+  margin-bottom: 10px;
+}
+
 /* imgupload_form_area */
 #imgupload_form_wrap ul,
 #imgupload_form_wrap ol {

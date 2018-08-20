@@ -46,7 +46,7 @@ class ImageUploader extends \MyApp\Controller {
       // echo $e->getMessage();
       // exit;
     }
-    header('Location: ' . MEDIA);
+    header('Location: ' . ADMMEDIA);
     exit;
   }
 

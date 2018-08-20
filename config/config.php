@@ -12,7 +12,8 @@ define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
 define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 // PATH
-define('MEDIA', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/media.php');
+define('ADMMEDIA', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/media.php');
+define('ADMITEM', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/item.php');
 
 // IMG
 define('MAX_FILE_SIZE', 1 * 1024 * 1024);

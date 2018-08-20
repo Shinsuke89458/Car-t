@@ -68,13 +68,9 @@ if (
             </nav>
           </div>
         </div>
+        
+      </div>
 
-      </div>
-      <div class="col-sm-2">
-        <div class="float-right">
-          <p class="btn btn-dark">新規追加</p>
-        </div>
-      </div>
     </div>
     </div>
   </header>

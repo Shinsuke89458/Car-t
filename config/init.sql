@@ -23,8 +23,16 @@ create table users (
 drop table if exists cat;
 create table cat (
   cat_id int not null auto_increment primary key,
-  cat_name varchar(255) unique
+  cat_name_en varchar(255) unique,
+  cat_name_ja varchar(255) unique
 );
+
+insert into cat(cat_name_en, cat_name_ja) values
+('ncar', '新車'),
+('ucar', '中古車'),
+('tirewheel', 'タイヤ＆ホイール'),
+('caracce', 'カーアクセサリー'),
+('carparts', 'カーパーツ');
 
 drop table if exists productcat;
 create table productcat (
