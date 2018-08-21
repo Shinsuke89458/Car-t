@@ -36,7 +36,7 @@ class Insert extends \MyApp\Controller {
 
   private function _insert() {
     $admin = new \MyApp\Model\Admin();
-    $admin->insertdb([
+    $admin->insertDB([
       'cat_name_en' => $_POST['cat_name_en'],
       'product_ttl' => $_POST['product_ttl'],
       'product_exp' => $_POST['product_exp'],
