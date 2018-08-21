@@ -31,7 +31,7 @@ require_once(__DIR__ . '/../config/config.php');
         */ ?>
         <input type="hidden" name="cat_name_en" value="<?= h($_GET['cat']); ?>">
         <input type="hidden" name="store_id" value="">
-        <p><input type="submit" value="<?= (!isset($_GET['cat'])) ? "公開": "更新"; ?>"></p>
+        <p><input type="submit" value="公開"></p>
       </form>
 
     </div>

@@ -42,7 +42,12 @@ if (
   $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=ucar' ||
   $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=tirewheel' ||
   $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=caracce' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=carparts'
+  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=carparts' ||
+  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=ncar' ||
+  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=ucar' ||
+  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=tirewheel' ||
+  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=caracce' ||
+  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=carparts'
 ):
 
   $headerView .= '
@@ -68,7 +73,7 @@ if (
             </nav>
           </div>
         </div>
-        
+
       </div>
 
     </div>
