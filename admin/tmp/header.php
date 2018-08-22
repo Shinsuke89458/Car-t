@@ -1,5 +1,8 @@
 <?php
 
+$qsstart = strpos($_SERVER['REQUEST_URI'], '?');
+$url = ($qsstart)? substr($_SERVER['REQUEST_URI'], 0, $qsstart++): $_SERVER['REQUEST_URI'];
+
 $headerView = '
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
@@ -14,8 +17,8 @@ $headerView = '
 ';
 
 if (
-  $_SERVER['REQUEST_URI'] === '/admin' ||
-  $_SERVER['REQUEST_URI'] === '/admin/index.php'
+  $url === '/admin' ||
+  $url === '/admin/index.php'
 ):
   $headerView .= '
   <header id="header">
@@ -35,19 +38,9 @@ if (
 endif;
 
 if (
-  $_SERVER['REQUEST_URI'] === '/admin/media.php' ||
-  $_SERVER['REQUEST_URI'] === '/admin/item.php' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=ncar' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=ucar' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=tirewheel' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=caracce' ||
-  $_SERVER['REQUEST_URI'] === '/admin/itemlist.php?cat=carparts' ||
-  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=ncar' ||
-  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=ucar' ||
-  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=tirewheel' ||
-  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=caracce' ||
-  $_SERVER['REQUEST_URI'] === '/admin/item.php?cat=carparts'
+  $url === '/admin/media.php' ||
+  $url === '/admin/item.php' ||
+  $url === '/admin/itemlist.php'
 ):
 
   $headerView .= '
