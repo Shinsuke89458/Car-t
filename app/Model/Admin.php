@@ -26,11 +26,9 @@ class Admin extends \MyApp\Model {
     // get cat_id
     $cat_id = $this->_getCatIdByCatNameEn($values);
     // get product_id
-    $product_id = $this->_getProductIdByCatId($cat_id);
-    var_dump($product_id);
-    exit;
+    $products_id = $this->_getProductIdByCatId($cat_id);
     // get products
-    $this->_getProducts();
+    return $this->_getProducts($products_id);
   }
 
   private function _getCatIdByCatNameEn($values) {
@@ -44,8 +42,6 @@ class Admin extends \MyApp\Model {
     }
     $row = $stmt->fetch();
     return $row['cat_id'];
-    // $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
-    // return $stmt->fetchAll();
   }
 
   private function _getProductIdByCatId($cat_id) {
@@ -57,14 +53,26 @@ class Admin extends \MyApp\Model {
       throw new \Exception('DB ERR! [get product_id]');
       exit;
     }
-    // $row = $stmt->fetch();
-    // return $row['product_id'];
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchAll();
   }
 
-  private function _getProducts() {
-
+  private function _getProducts($products_id) {
+    $products_id_arr = [];
+    foreach ($products_id as $product) {
+      array_push($products_id_arr, $product->{'product_id'});
+    }
+    $inClause = substr(str_repeat(',?', count($products_id_arr)), 1);
+    $stmt = $this->db->prepare(
+      sprintf("SELECT * FROM products WHERE product_id IN (%s)", $inClause)
+    );
+    $res = $stmt->execute($products_id_arr);
+    if ($res) {
+      $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+      return $stmt->fetchAll();
+    } else {
+      return 'none';
+    }
   }
 
   public function getCatNameJaDB($values) {
@@ -122,7 +130,6 @@ class Admin extends \MyApp\Model {
           exit;
       }
       $row = $stmt->fetch();
-
       return $row['product_id'];
   }
 
