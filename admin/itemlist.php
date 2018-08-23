@@ -13,6 +13,7 @@ if (isset($_GET['cat'])) {
     if ($products !== 'none') {
 
       foreach ($products as $product) {
+        $product_price = ($product->{'product_price'} != 0)? h($product->{'product_price'}): 'お問い合わせ価格';
         $viewItem .= '
         <li class="row align-items-center">
           <div class="col-sm-3">
@@ -21,13 +22,13 @@ if (isset($_GET['cat'])) {
           <div class="col-sm-7">
             <h2>' . h($product->{'product_ttl'}) . '</h2>
             <p>' . h($product->{'product_exp'}) . '</p>
-            <p class="price">' . h($product->{'product_price'}) . '</p>
+            <p class="price">' . $product_price . '</p>
           </div>
           <div class="col-sm-1">
             <p><a href="item.php?cat=' . h($_GET['cat']) . '&product_id=' . h($product->{'product_id'}) . '">編集</a></p>
           </div>
           <div class="col-sm-1">
-            <p>削除</p>
+            <p><a href="delete.php?cat=' . h($_GET['cat']) . '&product_id=' . h($product->{'product_id'}) . '">削除</a></p>
           </div>
         </li>
         ';

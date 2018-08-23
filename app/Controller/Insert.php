@@ -5,30 +5,33 @@ namespace MyApp\Controller;
 class Insert extends \MyApp\Controller {
 
   public function run() {
-
     try {
-
       // validate
       $this->_validateInputval();
       // insert
       $this->_insert();
       // redirect
-      header('Location: ' . ADMITEM);
+      header('Location: ' . ADMITEM . '?cat=' . $_GET['cat']);
       exit;
-
     } catch (\Exception $e) {
       echo $e->getMessage();
       exit;
     }
-
   }
 
   private function _validateInputval() {
-    $_POST['product_price'] = mb_convert_kana($_POST['product_price'], 'a');
-    if (is_numeric($_POST['product_price'])) {
-      $_POST['product_price'] = intval($_POST['product_price']);
-    } else {
-      throw new \Exception('Price is not numeric!');
+    // not set
+    // if (!isset($_POST['product_imgpath']) ||$_POST['product_imgpath'] === '') throw new \Exception('Not set product_imgpath!');
+    if (!isset($_POST['product_ttl']) || $_POST['product_ttl'] === '') throw new \Exception('Not set product_ttl!');
+    if (!isset($_POST['product_price'])) throw new \Exception('Not set product_price!');
+    // validate product_price val
+    if ($_POST['product_price'] !== '') {
+      $_POST['product_price'] = mb_convert_kana($_POST['product_price'], 'a');
+      if (is_numeric($_POST['product_price'])) {
+        $_POST['product_price'] = intval($_POST['product_price']);
+      } else {
+        throw new \Exception('Price is not numeric!');
+      }
     }
     // validate tag
 

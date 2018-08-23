@@ -8,6 +8,12 @@ if (isset($_GET['cat'])) {
 if (isset($_GET['product_id'])) {
   $product = $utility->getProduct();
 }
+
+
+$formUrl = (!isset($_GET['product_id']))? 'insert.php': 'update.php';
+if (isset($_GET['cat'])) {
+  $formUrl .= '?cat=' . h($_GET['cat']);
+}
 ?>
 
 <?php require(__DIR__ . '/tmp/header.php'); ?>
@@ -23,7 +29,7 @@ if (isset($_GET['product_id'])) {
         </div>
       </div>
 
-      <form action="<?= (!isset($_GET['product_id'])) ? 'insert.php': 'update.php'; ?>" method="post">
+      <form action="<?= $formUrl; ?>" method="post">
         <p class="cms-thumb"><img src="https://placehold.jp/c9c9c9/ffffff/600×600.png?text=%E3%83%80%E3%83%9F%E3%83%BC%E7%94%BB%E5%83%8F" width="200"></p>
         <div>
           <p>画像</p>

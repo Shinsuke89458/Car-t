@@ -13,6 +13,7 @@ define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 // PATH
 define('ADMMEDIA', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/media.php');
+define('ADMITEMLIST', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/itemlist.php');
 define('ADMITEM', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/item.php');
 
 // IMG

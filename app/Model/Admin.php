@@ -4,6 +4,9 @@ namespace MyApp\Model;
 
 class Admin extends \MyApp\Model {
 
+  /***********
+    utility
+  ***********/
   public function getProductDB($values) {
     $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = :product_id");
     $res = $stmt->execute([
@@ -88,6 +91,41 @@ class Admin extends \MyApp\Model {
     return $row['cat_name_ja'];
   }
 
+  /***********
+    deleteDB
+  ***********/
+  public function deleteDB($values) {
+    $this->db->beginTransaction();
+      $this->_deleteProducts($values);
+      $this->_deleteProductCat($values);
+    $this->db->commit();
+  }
+
+  public function _deleteProducts($values) {
+    $stmt = $this->db->prepare("DELETE FROM products WHERE product_id = :product_id");
+    $res = $stmt->execute([
+      ':product_id' => $values['product_id'],
+    ]);
+    if (!$res) {
+      throw new \Exception('DB ERR! [delete from products]');
+      exit;
+    }
+  }
+
+  public function _deleteProductCat($values) {
+    $stmt = $this->db->prepare("DELETE FROM productcat WHERE product_id = :product_id");
+    $res = $stmt->execute([
+      ':product_id' => $values['product_id'],
+    ]);
+    if (!$res) {
+      throw new \Exception('DB ERR! [delete from productcat]');
+      exit;
+    }
+  }
+
+  /***********
+    insertDB
+  ***********/
   public function insertDB($values) {
 
       $this->db->beginTransaction();
@@ -105,7 +143,6 @@ class Admin extends \MyApp\Model {
 
   }
 
-  /*****************/
   private function _insertProducts($values) {
       $stmt = $this->db->prepare("INSERT INTO products(product_ttl, product_exp, product_price, product_imgpath, product_indate) VALUES(:product_ttl, :product_exp, :product_price, :product_imgpath, now())");
       $res = $stmt->execute([
