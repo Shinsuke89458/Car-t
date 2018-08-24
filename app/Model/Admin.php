@@ -26,31 +26,16 @@ class Admin extends \MyApp\Model {
   }
 
   public function getProductsDB($values) {
-    // get cat_id
-    $cat_id = $this->_getCatIdByCatNameEn($values);
     // get product_id
-    $products_id = $this->_getProductIdByCatId($cat_id);
+    $products_id = $this->_getProductIdByCatId($values);
     // get products
     return $this->_getProducts($products_id);
   }
 
-  private function _getCatIdByCatNameEn($values) {
-    $stmt = $this->db->prepare("SELECT cat_id FROM cat WHERE cat_name_en = :cat_name_en");
-    $res = $stmt->execute([
-      ':cat_name_en' => $values['cat_name_en']
-    ]);
-    if (!$res) {
-      throw new \Exception('DB ERR! [get cat_id]');
-      exit;
-    }
-    $row = $stmt->fetch();
-    return $row['cat_id'];
-  }
-
-  private function _getProductIdByCatId($cat_id) {
+  private function _getProductIdByCatId($values) {
     $stmt = $this->db->prepare("SELECT product_id FROM productcat WHERE cat_id = :cat_id");
     $res = $stmt->execute([
-      ':cat_id' => $cat_id
+      ':cat_id' => $values['cat_id']
     ]);
     if (!$res) {
       throw new \Exception('DB ERR! [get product_id]');
@@ -79,9 +64,9 @@ class Admin extends \MyApp\Model {
   }
 
   public function getCatNameJaDB($values) {
-    $stmt = $this->db->prepare("SELECT cat_name_ja FROM cat WHERE cat_name_en = :cat_name_en");
+    $stmt = $this->db->prepare("SELECT cat_name_ja FROM cat WHERE cat_id = :cat_id");
     $res = $stmt->execute([
-      ':cat_name_en' => $values['cat_name_en']
+      ':cat_id' => $values['cat_id']
     ]);
     if (!$res) {
       throw new \Exception('DB ERR! [get cat_name_ja]');
@@ -134,10 +119,8 @@ class Admin extends \MyApp\Model {
           $this->_insertProducts($values);
           // get product_id
           $product_id = $this->_getProductId($values);
-          // get cat_id
-          $cat_id = $this->_getCatId($values);
           // insert productcat
-          $this->_insertProductCat($values, $product_id, $cat_id);
+          $this->_insertProductCat($values, $product_id);
 
       $this->db->commit();
 
@@ -170,23 +153,10 @@ class Admin extends \MyApp\Model {
       return $row['product_id'];
   }
 
-  private function _getCatId($values) {
-      $stmt = $this->db->prepare("SELECT cat_id FROM cat WHERE cat_name_en = :cat_name_en");
-      $res = $stmt->execute([
-        ':cat_name_en' => $values['cat_name_en']
-      ]);
-      if (!$res){
-          throw new \Exception('DB ERR! [get cat_id from cat]');
-          exit;
-      }
-      $row= $stmt->fetch();
-      return $row['cat_id'];
-  }
-
-  private function _insertProductCat($values, $product_id, $cat_id) {
+  private function _insertProductCat($values, $product_id) {
       $stmt = $this->db->prepare("INSERT INTO productcat(cat_id, product_id) VALUES(:cat_id, :product_id)");
       $res = $stmt->execute([
-        ':cat_id' => $cat_id,
+        ':cat_id' => $values['cat_id'],
         ':product_id' => $product_id
       ]);
       if (!$res) {

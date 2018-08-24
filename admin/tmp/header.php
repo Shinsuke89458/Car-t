@@ -57,11 +57,11 @@ if (
             <nav>
               <ul class="list-inline">
                 <li class="list-inline-item"><a href="media.php">メディア</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=ncar">新車</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=ucar">中古車</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=tirewheel">タイヤ＆ホイール</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=caracce">カーアクセサリー</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat=carparts">カーパーツ</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat_id=1">新車</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat_id=2">中古車</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat_id=3">タイヤ＆ホイール</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat_id=4">カーアクセサリー</a></li>
+                <li class="list-inline-item"><a href="itemlist.php?cat_id=5">カーパーツ</a></li>
               </ul>
             </nav>
           </div>

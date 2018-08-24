@@ -11,7 +11,7 @@ class Insert extends \MyApp\Controller {
       // insert
       $this->_insert();
       // redirect
-      header('Location: ' . ADMITEM . '?cat=' . $_GET['cat']);
+      header('Location: ' . ADMITEM . '?cat_id=' . $_GET['cat_id']);
       exit;
     } catch (\Exception $e) {
       echo $e->getMessage();
@@ -40,7 +40,7 @@ class Insert extends \MyApp\Controller {
   private function _insert() {
     $admin = new \MyApp\Model\Admin();
     $admin->insertDB([
-      'cat_name_en' => $_POST['cat_name_en'],
+      'cat_id' => $_POST['cat_id'],
       'product_ttl' => $_POST['product_ttl'],
       'product_exp' => $_POST['product_exp'],
       'product_price' => $_POST['product_price'],

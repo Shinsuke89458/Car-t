@@ -7,11 +7,13 @@ class Delete extends \MyApp\Controller {
   public function run() {
     try {
       // validate
-      if (!isset($_GET['product_id']) || $_GET['product_id'] === '') throw new \Exception('Not set qs product_id!');
+      if (!isset($_GET['product_id']) || $_GET['product_id'] === '') {
+        throw new \Exception('Not set qs product_id!');
+      }
       // insert
       $this->_delete();
       // redirect
-      header('Location: ' . ADMITEMLIST . '?cat=' . $_GET['cat']);
+      header('Location: ' . ADMITEMLIST . '?cat_id=' . $_GET['cat_id']);
       exit;
     } catch (\Exception $e) {
       echo $e->getMessage();

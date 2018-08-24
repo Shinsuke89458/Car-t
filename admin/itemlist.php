@@ -5,7 +5,7 @@ $utility = new MyApp\Controller\Utility();
 
 $viewItem = '';
 
-if (isset($_GET['cat'])) {
+if (isset($_GET['cat_id'])) {
 
     $cat_name_ja = $utility->getCatNameJa();
     $products = $utility->getProducts();
@@ -25,10 +25,10 @@ if (isset($_GET['cat'])) {
             <p class="price">' . $product_price . '</p>
           </div>
           <div class="col-sm-1">
-            <p><a href="item.php?cat=' . h($_GET['cat']) . '&product_id=' . h($product->{'product_id'}) . '">編集</a></p>
+            <p><a href="item.php?cat_id=' . h($_GET['cat_id']) . '&product_id=' . h($product->{'product_id'}) . '">編集</a></p>
           </div>
           <div class="col-sm-1">
-            <p><a href="delete.php?cat=' . h($_GET['cat']) . '&product_id=' . h($product->{'product_id'}) . '">削除</a></p>
+            <p><a href="delete.php?cat_id=' . h($_GET['cat_id']) . '&product_id=' . h($product->{'product_id'}) . '">削除</a></p>
           </div>
         </li>
         ';
@@ -48,10 +48,10 @@ if (isset($_GET['cat'])) {
     <div id="contents" class="container">
 
       <div class="row heading-post">
-        <h2 class="col-sm-10">投稿一覧<?php if (isset($_GET['cat'])) echo '('.h($cat_name_ja).')'; ?></h2>
+        <h2 class="col-sm-10">投稿一覧<?php if (isset($_GET['cat_id'])) echo '('.h($cat_name_ja).')'; ?></h2>
         <div class="col-sm-2">
           <div class="float-right">
-            <p><a href="item.php<?php if (isset($_GET['cat'])) echo '?cat=' . h($_GET['cat']); ?>" class="btn btn-dark">新規追加</a></p>
+            <p><a href="item.php<?php if (isset($_GET['cat_id'])) echo '?cat_id=' . h($_GET['cat_id']); ?>" class="btn btn-dark">新規追加</a></p>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 require_once(__DIR__ . '/../config/config.php');
 
 $utility = new MyApp\Controller\Utility();
-if (isset($_GET['cat'])) {
+if (isset($_GET['cat_id'])) {
     $cat_name_ja = $utility->getCatNameJa();
 }
 if (isset($_GET['product_id'])) {
@@ -11,8 +11,8 @@ if (isset($_GET['product_id'])) {
 
 
 $formUrl = (!isset($_GET['product_id']))? 'insert.php': 'update.php';
-if (isset($_GET['cat'])) {
-  $formUrl .= '?cat=' . h($_GET['cat']);
+if (isset($_GET['cat_id'])) {
+  $formUrl .= '?cat_id=' . h($_GET['cat_id']);
 }
 ?>
 
@@ -21,10 +21,10 @@ if (isset($_GET['cat'])) {
     <div id="contents" class="container">
 
       <div class="row heading-post">
-        <h2 class="col-sm-10">投稿詳細<?php if (isset($_GET['cat'])) echo '('.h($cat_name_ja).')'; ?></h2>
+        <h2 class="col-sm-10">投稿詳細<?php if (isset($_GET['cat_id'])) echo '('.h($cat_name_ja).')'; ?></h2>
         <div class="col-sm-2">
           <div class="float-right">
-            <p><a href="item.php<?php if (isset($_GET['cat'])) echo '?cat=' . h($_GET['cat']); ?>" class="btn btn-dark">新規追加</a></p>
+            <p><a href="item.php<?php if (isset($_GET['cat_id'])) echo '?cat_id=' . h($_GET['cat_id']); ?>" class="btn btn-dark">新規追加</a></p>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ if (isset($_GET['cat'])) {
           <input type="text" name="product_tag" value="">
         </p>
         */ ?>
-        <input type="hidden" name="cat_name_en" value="<?php if (isset($_GET['cat'])) echo h($_GET['cat']); ?>">
+        <input type="hidden" name="cat_id" value="<?php if (isset($_GET['cat_id'])) echo h($_GET['cat_id']); ?>">
         <input type="hidden" name="store_id" value="">
         <p><input type="submit" value="<?= (!isset($_GET['product_id'])) ? '公開': '更新'; ?>"></p>
       </form>

@@ -23,11 +23,11 @@ class Utility extends \MyApp\Controller {
   public function getProducts() {
     try {
       // validate
-      if (!isset($_GET['cat']) || $_GET['cat'] === '') throw new \Exception('Not set qs cat!');
+      if (!isset($_GET['cat_id']) || $_GET['cat_id'] === '') throw new \Exception('Not set qs cat_id!');
       // getProductsDB
       $admin = new \MyApp\Model\Admin();
       $products = $admin->getProductsDB([
-        'cat_name_en' => $_GET['cat']
+        'cat_id' => $_GET['cat_id']
       ]);
       return $products;
     } catch (\Exception $e) {
@@ -39,11 +39,11 @@ class Utility extends \MyApp\Controller {
   public function getCatNameJa() {
     try {
       // validate
-      if (!isset($_GET['cat']) || $_GET['cat'] === '') throw new \Exception('Not set qs cat!');
+      if (!isset($_GET['cat_id']) || $_GET['cat_id'] === '') throw new \Exception('Not set qs cat_id!');
       // getCatNameJaDB
       $admin = new \MyApp\Model\Admin();
       $cat_name_ja = $admin->getCatNameJaDB([
-        'cat_name_en' => $_GET['cat']
+        'cat_id' => $_GET['cat_id']
       ]);
       return $cat_name_ja;
     } catch (\Exception $e) {
