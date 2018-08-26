@@ -4,6 +4,17 @@ namespace MyApp\Controller;
 
 class Utility extends \MyApp\Controller {
 
+  public function getCats() {
+    try {
+      $admin = new \MyApp\Model\Admin();
+      $cats = $admin->getCatsDB();
+      return $cats;
+    } catch (\Exception $e) {
+      echo $e->getMessage();
+      exit;
+    }
+  }
+
   public function getProduct() {
     try {
       // validate

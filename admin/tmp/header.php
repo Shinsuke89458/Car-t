@@ -3,6 +3,9 @@
 $qsstart = strpos($_SERVER['REQUEST_URI'], '?');
 $url = ($qsstart)? substr($_SERVER['REQUEST_URI'], 0, $qsstart++): $_SERVER['REQUEST_URI'];
 
+$utility = new MyApp\Controller\Utility();
+$cats = $utility->getCats();
+
 $headerView = '
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
@@ -47,28 +50,23 @@ if (
   <header id="header">
     <div class="container">
     <div class="row align-items-center">
-      <div class="col-sm-10">
-
-        <div class="row align-items-center">
-          <div class="col-sm-4">
-            <h1><a href="/admin">Car-t 管理画面</a></h1>
-          </div>
-          <div class="col-sm-8">
-            <nav>
-              <ul class="list-inline">
-                <li class="list-inline-item"><a href="media.php">メディア</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat_id=1">新車</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat_id=2">中古車</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat_id=3">タイヤ＆ホイール</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat_id=4">カーアクセサリー</a></li>
-                <li class="list-inline-item"><a href="itemlist.php?cat_id=5">カーパーツ</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-
+      <div class="col-sm-4">
+        <h1><a href="/admin">Car-t 管理画面</a></h1>
       </div>
-
+      <div class="col-sm-8">
+        <nav>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="media.php">メディア</a></li>
+';
+foreach ($cats as $cat) {
+$headerView .= '
+            <li class="list-inline-item"><a href="itemlist.php?cat_id=' . $cat->{'cat_id'} . '">' . $cat->{'cat_name_ja'} . '</a></li>
+';
+}
+$headerView .='
+          </ul>
+        </nav>
+      </div>
     </div>
     </div>
   </header>

@@ -7,6 +7,12 @@ class Admin extends \MyApp\Model {
   /***********
     utility
   ***********/
+  public function getCatsDB() {
+    $stmt = $this->db->query("SELECT * FROM cat");
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    return $stmt->fetchAll();
+  }
+
   public function getProductDB($values) {
     $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = :product_id");
     $res = $stmt->execute([
