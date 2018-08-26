@@ -14,6 +14,9 @@ $formUrl = (!isset($_GET['product_id']))? 'insert.php': 'update.php';
 if (isset($_GET['cat_id'])) {
   $formUrl .= '?cat_id=' . h($_GET['cat_id']);
 }
+if (isset($_GET['product_id'])) {
+  $formUrl .= '&product_id=' . h($_GET['product_id']);
+}
 ?>
 
 <?php require(__DIR__ . '/tmp/header.php'); ?>
@@ -51,6 +54,7 @@ if (isset($_GET['cat_id'])) {
         </p>
         */ ?>
         <input type="hidden" name="cat_id" value="<?php if (isset($_GET['cat_id'])) echo h($_GET['cat_id']); ?>">
+        <input type="hidden" name="product_id" value="<?php if (isset($_GET['product_id'])) echo h($_GET['product_id']); ?>">
         <input type="hidden" name="store_id" value="">
         <p><input type="submit" value="<?= (!isset($_GET['product_id'])) ? '公開': '更新'; ?>"></p>
       </form>

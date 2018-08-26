@@ -115,10 +115,36 @@ class Admin extends \MyApp\Model {
   }
 
   /***********
+    updateDB
+  ***********/
+  public function updateDB($values) {
+    $this->db->beginTransaction();
+
+      // update products
+      $this->_updateProducts($values);
+
+    $this->db->commit();
+  }
+
+  private function _updateProducts($values) {
+    $stmt = $this->db->prepare("UPDATE products SET product_ttl = :product_ttl, product_exp = :product_exp, product_price = :product_price, product_imgpath = :product_imgpath, product_indate = now() WHERE product_id = :product_id");
+    $res = $stmt->execute([
+      ':product_id' => $values['product_id'],
+      ':product_ttl' => $values['product_ttl'],
+      ':product_exp' => $values['product_exp'],
+      ':product_price' => $values['product_price'],
+      ':product_imgpath' => $values['product_imgpath']
+    ]);
+    if (!$res) {
+      throw new \Exception('DB ERR! [update products]');
+      exit;
+    }
+  }
+
+  /***********
     insertDB
   ***********/
   public function insertDB($values) {
-
       $this->db->beginTransaction();
 
           // insert products
@@ -129,7 +155,6 @@ class Admin extends \MyApp\Model {
           $this->_insertProductCat($values, $product_id);
 
       $this->db->commit();
-
   }
 
   private function _insertProducts($values) {
