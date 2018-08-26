@@ -52,15 +52,32 @@ class Admin extends \MyApp\Model {
   }
 
   private function _getProducts($products_id) {
+    // page=1 limit 0, 10  ... 0~9
+    // page=2 limit 10, 10 ... 10~19
+    // page=3 limit 20, 10 ... 20~29
+    // page=n limit (n - 1) * 10, 10 ... n~n+9
     $products_id_arr = [];
     foreach ($products_id as $product) {
       array_push($products_id_arr, $product->{'product_id'});
     }
-    $inClause = substr(str_repeat(',?', count($products_id_arr)), 1);
-    $stmt = $this->db->prepare(
-      sprintf("SELECT * FROM products WHERE product_id IN (%s)", $inClause)
-    );
-    $res = $stmt->execute($products_id_arr);
+    // $inClause = substr(str_repeat(',?', count($products_id_arr)), 1);
+    $inClause = '';
+    for ($i = 0; $i < count($products_id_arr); $i++) {
+      $inClause .= ',:id'.$i;
+    }
+    $inClause = substr($inClause, 1);
+    $query = sprintf("SELECT * FROM products WHERE product_id IN (%s) LIMIT :st, :ed", $inClause);
+    $stmt = $this->db->prepare($query);
+    // $stmt = $this->db->prepare(
+    //   sprintf("SELECT * FROM products WHERE product_id IN (%s)", $inClause)
+    // );
+    for ($i = 0; $i < count($products_id_arr); $i++) {
+      $stmt->bindValue(':id'.$i, $products_id_arr[$i], \PDO::PARAM_STR);
+    }
+    $stmt->bindValue(':st', 1, \PDO::PARAM_INT);
+    $stmt->bindValue(':ed', 2, \PDO::PARAM_INT);
+    $res = $stmt->execute();
+    // $res = $stmt->execute($products_id_arr);
     if ($res) {
       $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
       return $stmt->fetchAll();
