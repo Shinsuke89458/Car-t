@@ -16,6 +16,9 @@ define('ADMMEDIA', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/media.php');
 define('ADMITEMLIST', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/itemlist.php');
 define('ADMITEM', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/item.php');
 
+// SETTING
+define('POST_PER_PAGE', 5);
+
 // IMG
 define('MAX_FILE_SIZE', 1 * 1024 * 1024);
 define('THUMBNAIL_WIDTH', 250);

@@ -38,7 +38,8 @@ class Utility extends \MyApp\Controller {
       // getProductsDB
       $admin = new \MyApp\Model\Admin();
       $products = $admin->getProductsDB([
-        'cat_id' => $_GET['cat_id']
+        'cat_id' => $_GET['cat_id'],
+        'page' => $_GET['page']
       ]);
       return $products;
     } catch (\Exception $e) {
