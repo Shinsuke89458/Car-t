@@ -6,6 +6,19 @@ a {
   color: #333;
 }
 
+/* utility */
+.centerbox {
+	/*width: 900px;*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	z-index: 1;
+}
 
 /* style */
 
@@ -68,31 +81,29 @@ textarea {
   margin-bottom: 10px;
 }
 
+.form-parts {
+  margin-bottom: 10px;
+}
+
 /* imgupload_form_area */
-#imgupload_form_wrap ul,
-#imgupload_form_wrap ol {
-  /*list-style: none;
-  margin: 0;
-  padding: 0;*/
+#imgupload_form_wrap .imgupload_form_area,
+#imgupload_form_wrap .imgupload_form_area_wrap {
+  height: 100%;
 }
 #imgupload_form_wrap li {
-  /*float: left;*/
-  width: 250px;
+  float: left;
+  width: 260px;
   height: 150px;
   overflow: hidden;
   margin-right: 5px;
   margin-bottom: 5px;
   border: 1px solid #ddd;
 }
-
 #imgupload_form_wrap input[type=file] {
-  position: absolute;
-  top: 80px;
-  left: 0;
   width: 100%;
-  height: 100%;
   cursor: pointer;
   opacity: 0;
+  height: 100%;
 }
 #imgupload_form_wrap .imgupload_form {
   width: 100%;
@@ -100,31 +111,29 @@ textarea {
   border: 1px dotted #000;
   background: #ddd;
   margin-bottom: 10px;
-  padding-top: 120px;
   text-align: center;
-}
-#imgupload_form_wrap .btn {
   position: relative;
-  display: inline-block;
-  width: 50%;
-  padding: 7px;
-  border-radius: 5px;
-  margin: 10px auto 40px;
-  color: #fff;
-  /*box-shadow: 0 4px #0088cc;*/
-  /*background: #00aaff;*/
-  background: #666;
 }
-#imgupload_form_wrap .btn:hover {
+#imgupload_form_wrap .imgupload_form_btn label {
+  width: 240px;
+  color: white;
+  background: #666;
+  padding: 6px;
+  border-radius: 4px;
+}
+#imgupload_form_wrap .imgupload_form_btn label:hover {
   opacity: 0.8;
+  cursor: pointer;
+}
+#imgupload_form_wrap .imgupload_file_btn {
+  display: none;
 }
 #imgupload_form_wrap .msg-container {
   margin-bottom: 40px;
 }
 #imgupload_form_wrap .msg {
-  /*margin: 0 auto 15px;*/
   margin: 0 auto;
-  width: 400px;
+  text-align: center;
   font-weight: bold;
 }
 .msg.success {
@@ -132,4 +141,12 @@ textarea {
 }
 .msg.error {
   color: #f44336;
+}
+
+/* overwrite Bootstrap */
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 88%;
+    margin: 1rem auto;
+  }
 }

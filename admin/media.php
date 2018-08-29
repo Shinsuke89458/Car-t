@@ -10,17 +10,18 @@ $images = $uploader->getImages();
 
 ?>
 
-<?php require(__DIR__ . '/tmp/header.php'); ?>
+<?php require_once(__DIR__ . '/tmp/header.php'); ?>
 
   <div id="imgupload_form_wrap" class="container">
 
+    <?php /*
     <div id="imgupload_form" class="imgupload_form">
         <div class="area">
           <p>ここにファイルをドラッグ＆ドロップ</p>
           <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_area">
             <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE); ?>">
             <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_area" multiple>
-            <?php /*<input type="submit" value="upload">*/ ?>
+            <?php // <input type="submit" value="upload"> ?>
           </form>
         </div>
         <p>または</p>
@@ -29,7 +30,30 @@ $images = $uploader->getImages();
           <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_btn">
             <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE); ?>">
             <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_btn" multiple>
-            <?php /*<input type="submit" value="upload">*/ ?>
+            <?php // <input type="submit" value="upload"> ?>
+          </form>
+        </div>
+    </div>
+    */ ?>
+
+    <div id="imgupload_form" class="imgupload_form">
+        <div class="imgupload_form_area_wrap">
+          <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_area" class="imgupload_form_area">
+          <?php /*<p>ここにファイルをドラッグ＆ドロップ</p>*/ ?>
+          <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE); ?>">
+          <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_area" class="imgupload_file_area" multiple>
+          <?php // <input type="submit" value="upload"> ?>
+          </form>
+        </div>
+        <div class="imgupload_form_btn_wrap centerbox">
+          <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_btn" class="imgupload_form_btn">
+          <p>ここにファイルをドラッグ＆ドロップ</p>
+          <p>または</p>
+          <label for="imgupload_file_btn">
+            ファイルを選択
+            <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_btn" class="imgupload_file_btn" multiple>
+          </label>
+          <?php // <input type="submit" value="upload"> ?>
           </form>
         </div>
     </div>
@@ -55,4 +79,4 @@ $images = $uploader->getImages();
 
   </div>
 
-<?php require(__DIR__ . '/tmp/footer.php'); ?>
+<?php require_once(__DIR__ . '/tmp/footer.php'); ?>

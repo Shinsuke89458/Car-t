@@ -17,6 +17,31 @@ if (isset($_GET['cat_id'])) {
 if (isset($_GET['product_id'])) {
   $formUrl .= '&product_id=' . h($_GET['product_id']);
 }
+
+$imgModalHead = '
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">画像一覧</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+';
+// $imgModal .= require(__DIR__ . '/media.php');
+$imgModalFoot = '
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+';
+
 ?>
 
 <?php require(__DIR__ . '/tmp/header.php'); ?>
@@ -34,18 +59,25 @@ if (isset($_GET['product_id'])) {
 
       <form action="<?= $formUrl; ?>" method="post">
         <p class="cms-thumb"><img src="https://placehold.jp/c9c9c9/ffffff/600×600.png?text=%E3%83%80%E3%83%9F%E3%83%BC%E7%94%BB%E5%83%8F" width="200"></p>
-        <div>
-          <p>画像</p>
+        <div class="form-parts">
+          <?php /*<p>画像</p>*/ ?>
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+            画像を選択
+          </button>
+          <?= $imgModalHead; ?>
+          <?php require(__DIR__ . '/media.php'); ?>
+          <?= $imgModalFoot; ?>
           <?php /*<p><input type="file" name="fname" class="cms-item"></p>*/ ?>
-          <p>画像ファイル名<input type="text" name="product_imgpath" value="<?php if (isset($_GET['product_id'])) echo $product['product_imgpath']; ?>"></p>
+          <?php /*<p>画像ファイル名<input type="text" name="product_imgpath" value="<?php if (isset($_GET['product_id'])) echo $product['product_imgpath']; ?>"></p>*/ ?>
+          <input type="hidden" name="product_imgpath" value="">
         </div>
-        <p>商品名:<br>
+        <p class="form-parts">商品名:<br>
           <input type="text" name="product_ttl" value="<?php if (isset($_GET['product_id'])) echo $product['product_ttl']; ?>">
         </p>
-        <p>商品説明:<br>
+        <p class="form-parts">商品説明:<br>
           <textarea name="product_exp"><?php if (isset($_GET['product_id'])) echo $product['product_exp']; ?></textarea>
         </p>
-        <p>価格:<br>
+        <p class="form-parts">価格:<br>
           <input type="text" name="product_price" value="<?php if (isset($_GET['product_id'])) echo $product['product_price']; ?>">
         </p>
         <?php /*
