@@ -6,24 +6,11 @@ $url = ($qsstart)? substr($_SERVER['REQUEST_URI'], 0, $qsstart++): $_SERVER['REQ
 $utility = new MyApp\Controller\Utility();
 $cats = $utility->getCats();
 
-$headerView = '
-<!DOCTYPE html>
-<html lang="ja" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Car-t 管理画面</title>
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="/admin/styles.css">
-  </head>
-  <body>
-';
-
 if (
   $url === '/admin' ||
   $url === '/admin/index.php'
 ):
-  $headerView .= '
+  $headerView = '
   <header id="header">
     <div class="container">
     <div class="row">
@@ -46,7 +33,7 @@ if (
   $url === '/admin/itemlist.php'
 ):
 
-  $headerView .= '
+  $headerView = '
   <header id="header">
     <div class="container">
     <div class="row align-items-center">
@@ -74,4 +61,16 @@ $headerView .='
 
 endif;
 
-echo $headerView;
+?>
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Car-t 管理画面</title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/admin/styles.css">
+  </head>
+  <body>
+
+  <?=  $headerView; ?>

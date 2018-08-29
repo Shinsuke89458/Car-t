@@ -5,14 +5,19 @@ $utility = new MyApp\Controller\Utility();
 
 $viewItem = '';
 
+if (!isset($_GET['page'])) header('Location: ' . ADMITEMLIST . '?cat_id=' . $_GET['cat_id'] . '&page=1');
+
 if (isset($_GET['cat_id'])) {
 
     $cat_name_ja = $utility->getCatNameJa();
     $products = $utility->getProducts();
+    $productsNum = $products['productsNum'];
+    $productsList = $products['productsList'];
 
-    if ($products !== 'none') {
+    if ($productsList !== 'none') {
 
-      foreach ($products as $product) {
+      // create $viewItem
+      foreach ($productsList as $product) {
         $product_price = ($product->{'product_price'} != 0)? h($product->{'product_price'}): 'お問い合わせ価格';
         $viewItem .= '
         <li class="row align-items-center">
@@ -39,6 +44,33 @@ if (isset($_GET['cat_id'])) {
       $viewItem = '登録されている商品はありません';
 
     }
+
+    if (
+      $productsList !== 'none' &&
+      $productsNum > POST_PER_PAGE
+    ) {
+
+      /*
+      create $pageList
+      ceil(2 / 5) ... 1
+      ceil(5 / 5) ... 1
+      ceil(7 / 5) ... 2
+      */
+      $qsCat = (isset($_GET['cat_id']))? '?cat_id=' . h($_GET['cat_id']): '';
+      $allPageNum = ceil($productsNum / POST_PER_PAGE);
+      $pageList = '<li class="pager-item list-inline-item"><a href="itemlist.php' . $qsCat . '&page=1">最初へ</a></li>';
+      for ($pageNum = 1; $pageNum <= $allPageNum; $pageNum++) {
+        $qsPage = '&page=' .  $pageNum;
+        $pageList .= '<li class="pager-item list-inline-item"><a href="itemlist.php?' . $qsCat . $qsPage . '">' . $pageNum . '</a></li>';
+      }
+      $pageList .= '<li class="pager-item list-inline-item"><a href="itemlist.php' . $qsCat . '&page=' . $allPageNum . '">最後へ</a></li>';
+
+    } else {
+
+      $pageList = '';
+
+    }
+
 }
 
 ?>
@@ -61,25 +93,7 @@ if (isset($_GET['cat_id'])) {
       </ul>
 
       <ul class="pager list-inline">
-        <?php
-        /*
-        2/5 1
-        5/5 1
-        7/5 2
-        */
-        $qsCat = (isset($_GET['cat_id']))? '?cat_id=' . h($_GET['cat_id']): '';
-        $allPageNum = count($products) / POST_PER_PAGE;
-        var_dump(count($products));
-        ?>
-        <li class="pager-item list-inline-item"><a href="itemlist.php<?= $qsCat . '&page=1'; ?>">最初へ</a></li>
-        <?php
-        for ($pageNum = 1; $pageNum <= $allPageNum; $pageNum++):
-        ?>
-        <li class="pager-item list-inline-item"><a href="itemlist.php?page=<?= $qsCat . '&page=' . $pageNum;?>"><?= $pageNum; ?></a></li>
-        <?php
-        endfor;
-        ?>
-        <li class="pager-item list-inline-item"><a href="itemlist.php<?= $qsCat . '&page=' . $allPageNum;?>">最後へ</a></li>
+        <?= $pageList; ?>
       </ul>
 
     </div>

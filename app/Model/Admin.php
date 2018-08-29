@@ -56,7 +56,6 @@ class Admin extends \MyApp\Model {
     foreach ($products_id as $product) {
       array_push($products_id_arr, $product->{'product_id'});
     }
-    // $inClause = substr(str_repeat(',?', count($products_id_arr)), 1);
     $inClause = '';
     for ($i = 0; $i < count($products_id_arr); $i++) {
       $inClause .= ',:id'.$i;
@@ -65,14 +64,17 @@ class Admin extends \MyApp\Model {
     $productsNum = $this->_getProductsNum($values, $products_id, $products_id_arr, $inClause);
     $productsList = $this->_getProductsMain($values, $products_id, $products_id_arr, $inClause);
     return [
-      $productsNum,
-      $productsList
+      'productsNum' => $productsNum,
+      'productsList' => $productsList
     ];
   }
 
   private function _getProductsNum($values, $products_id, $products_id_arr, $inClause) {
     $query = sprintf("SELECT * FROM products WHERE product_id IN (%s)", $inClause);
     $stmt = $this->db->prepare($query);
+    for ($i = 0; $i < count($products_id_arr); $i++) {
+      $stmt->bindValue(':id'.$i, $products_id_arr[$i], \PDO::PARAM_STR);
+    }
     $res = $stmt->execute();
     if ($res) {
       $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
@@ -89,16 +91,12 @@ class Admin extends \MyApp\Model {
     // page=n limit (n - 1) * 10, 10 ... n~n+9
     $query = sprintf("SELECT * FROM products WHERE product_id IN (%s) LIMIT :st, :ed", $inClause);
     $stmt = $this->db->prepare($query);
-    // $stmt = $this->db->prepare(
-    //   sprintf("SELECT * FROM products WHERE product_id IN (%s)", $inClause)
-    // );
     for ($i = 0; $i < count($products_id_arr); $i++) {
       $stmt->bindValue(':id'.$i, $products_id_arr[$i], \PDO::PARAM_STR);
     }
     $stmt->bindValue(':st', ($values['page'] - 1) * POST_PER_PAGE, \PDO::PARAM_INT);
     $stmt->bindValue(':ed', POST_PER_PAGE, \PDO::PARAM_INT);
     $res = $stmt->execute();
-    // $res = $stmt->execute($products_id_arr);
     if ($res) {
       $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
       return $stmt->fetchAll();
