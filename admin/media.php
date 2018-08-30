@@ -70,7 +70,7 @@ $images = $uploader->getImages();
     <ul class="grid clearfix">
       <?php foreach ($images as $image): ?>
         <li class="gird-item">
-          <a href="<?= h(SITE_URL.'/src/images/'.basename($image)); ?>">
+          <a href="<?= h(SITE_URL.'/src/images/'.basename($image)); ?>" target="_blank">
             <img src="<?= h(SITE_URL.'/src/'.$image); ?>" alt="">
           </a>
         </li>

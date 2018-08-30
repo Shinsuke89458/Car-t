@@ -4,5 +4,17 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script type="text/javascript" src="/admin/script.js"></script>
+
+<script type="text/javascript">
+if (<?= $_SESSION['modal'] ?> === 1) {
+    $(window).on('load',function(){
+            $('#exampleModal').modal('show');
+    });
+}
+</script>
+<?php
+$_SESSION['modal'] = 0; // 0: close , 1: open
+?>
+
 </body>
 </html>

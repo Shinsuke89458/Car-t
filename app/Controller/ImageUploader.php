@@ -46,7 +46,14 @@ class ImageUploader extends \MyApp\Controller {
       // echo $e->getMessage();
       // exit;
     }
-    header('Location: ' . ADMMEDIA);
+
+    if ($_SERVER['REQUEST_URI'] === '/admin/media.php') {
+        header('Location: ' . ADMMEDIA);
+    } else {
+        $_SESSION['modal'] = 1; // 0: close , 1: open
+        header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+    }
+
     exit;
   }
 

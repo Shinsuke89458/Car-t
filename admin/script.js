@@ -36,6 +36,11 @@ $(function() {
 /***********
   modal
 ***********/
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
+// $('#myModal').on('shown.bs.modal', function () {
+//   $('#myInput').trigger('focus')
+// })
+// if (<?= $_SERVER['MODAL_STATUS'] ?> === 1) {
+//     $(window).on('load',function(){
+//         $('#exampleModal').modal('show');
+//     });
+// }
