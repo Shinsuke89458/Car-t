@@ -30,7 +30,7 @@ function basename(path) {
 }
 
 function dirname(path) {
-    return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');;
+    return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');
 }
 
 /*************

@@ -1,7 +1,14 @@
 <?php
 require_once(__DIR__ . '/../config/config.php');
 
+$token = new MyApp\Controller\Token();
 $utility = new MyApp\Controller\Utility();
+
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//   $token->post();
+//   $token->resetToken();
+// }
+
 if (isset($_GET['cat_id'])) {
     $cat_name_ja = $utility->getCatNameJa();
 }
@@ -19,11 +26,11 @@ if (isset($_GET['product_id'])) {
 }
 
 $imgModalHead = '
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">画像一覧</h5>
+        <h5 class="modal-title" id="mediaModalLabel">画像一覧</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -56,7 +63,7 @@ $imgModalFoot = '
         </div>
       </div>
 
-      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#mediaModal">
         画像を選択
       </button>
       <?= $imgModalHead; ?>
@@ -94,6 +101,7 @@ $imgModalFoot = '
         <input type="hidden" name="product_id" value="<?php if (isset($_GET['product_id'])) echo h($_GET['product_id']); ?>">
         <input type="hidden" name="store_id" value="">
         <p><input type="submit" value="<?= (!isset($_GET['product_id'])) ? '公開': '更新'; ?>"></p>
+        <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
       </form>
 
     </div>

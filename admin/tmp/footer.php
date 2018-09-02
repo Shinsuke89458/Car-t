@@ -8,7 +8,7 @@
 <script type="text/javascript">
 if (<?= $_SESSION['modal'] ?> === 1) {
     $(window).on('load',function(){
-            $('#exampleModal').modal('show');
+        $('#mediaModal').modal('show');
     });
 }
 </script>

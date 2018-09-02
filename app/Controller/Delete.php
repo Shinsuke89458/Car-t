@@ -10,7 +10,7 @@ class Delete extends \MyApp\Controller {
       if (!isset($_GET['product_id']) || $_GET['product_id'] === '') {
         throw new \Exception('Not set qs product_id!');
       }
-      // insert
+      // delete
       $this->_delete();
       // redirect
       header('Location: ' . ADMITEMLIST . '?cat_id=' . $_GET['cat_id']);

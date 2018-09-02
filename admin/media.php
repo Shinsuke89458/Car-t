@@ -1,9 +1,13 @@
 <?php
 require_once(__DIR__ . '/../config/config.php');
 
+$token = new MyApp\Controller\Token();
 $uploader = new MyApp\Controller\ImageUploader();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $token->post();
   $uploader->upload();
+  $token->resetToken();
 }
 list($success, $error) = $uploader->getResults();
 $images = $uploader->getImages();
@@ -21,6 +25,7 @@ $images = $uploader->getImages();
           <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE); ?>">
           <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_area" class="imgupload_file_area" multiple>
           <?php // <input type="submit" value="upload"> ?>
+          <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
           </form>
         </div>
         <div class="imgupload_form_btn_wrap centerbox">
@@ -32,6 +37,7 @@ $images = $uploader->getImages();
             <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_btn" class="imgupload_file_btn" multiple>
           </label>
           <?php // <input type="submit" value="upload"> ?>
+          <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
           </form>
         </div>
     </div>
