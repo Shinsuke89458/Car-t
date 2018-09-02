@@ -22,13 +22,15 @@ class Admin extends \MyApp\Model {
       throw new \Exception('DB ERR! [get product]');
       exit;
     }
-    $row = $stmt->fetch();
-    return [
-      'product_ttl' => $row['product_ttl'],
-      'product_exp' => $row['product_exp'],
-      'product_price' => $row['product_price'],
-      'product_imgpath' => $row['product_imgpath']
-    ];
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    return $stmt->fetchAll();
+    // $row = $stmt->fetch();
+    // return [
+    //   'product_ttl' => $row['product_ttl'],
+    //   'product_exp' => $row['product_exp'],
+    //   'product_price' => $row['product_price'],
+    //   'product_imgpath' => $row['product_imgpath']
+    // ];
   }
 
   public function getProductsDB($values) {
@@ -89,7 +91,7 @@ class Admin extends \MyApp\Model {
     // page=2 limit 10, 10 ... 10~19
     // page=3 limit 20, 10 ... 20~29
     // page=n limit (n - 1) * 10, 10 ... n~n+9
-    $query = sprintf("SELECT * FROM products WHERE product_id IN (%s) LIMIT :st, :ed", $inClause);
+    $query = sprintf("SELECT * FROM products WHERE product_id IN (%s) ORDER BY product_indate DESC LIMIT :st, :ed", $inClause);
     $stmt = $this->db->prepare($query);
     for ($i = 0; $i < count($products_id_arr); $i++) {
       $stmt->bindValue(':id'.$i, $products_id_arr[$i], \PDO::PARAM_STR);

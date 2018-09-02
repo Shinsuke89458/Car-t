@@ -9,7 +9,29 @@ $(function() {
   $('#imgupload_file_btn').on('change', function() {
     $('#imgupload_form_btn').submit();
   });
+  $('.btn-imgselect').on('click', function() {
+    $(this).parents('li').addClass('selected-img');
+    $(this).parents('li').siblings().removeClass('selected-img');
+  });
+  $('.btn-imgsetted').on('click', function() {
+    var imgsrc = $('li.selected-img img').attr('src');
+    var imgname = basename(imgsrc);
+    $('.cms-thumb img').attr('src', imgsrc);
+    $('input[name=product_imgpath]').attr('value', imgname);
+    $('#imgupload_form_wrap li').removeClass('selected-img');
+  });
+  $('.btn-closed').on('click', function() {
+    $('#imgupload_form_wrap li').removeClass('selected-img');
+  });
 });
+
+function basename(path) {
+    return path.replace(/\\/g,'/').replace( /.*\//, '' );
+}
+
+function dirname(path) {
+    return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');;
+}
 
 /*************
   Isotope js
