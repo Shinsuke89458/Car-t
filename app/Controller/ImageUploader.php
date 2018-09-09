@@ -15,45 +15,15 @@ class ImageUploader extends \MyApp\Controller {
     try {
 
       $files = $this->_devideImages();
+      $this->_uploadMain($files);
 
-      foreach ($files as $file) {
-        $this->_validateUpload($file);
-        if ($this->_errorFlag === FALSE) {
-          $this->_errorFlag = TRUE;
-          continue;
-        }
-        $ext = $this->_validateImageType($file);
-        if ($this->_errorFlag === FALSE) {
-          $this->_errorFlag = TRUE;
-          continue;
-        }
-        $savePath = $this->_save($file, $ext);
-        $this->_createTumbnail($savePath);
-        $this->_errorFlag = TRUE;
-        $this->_successMessage .= '<p>'.$file['image']['name'].' is Upload Done!</p>';
-        // $this->_successMessage .= ($this->_successMessage === '')? $file['image']['name'].' is Upload Done!': '<br>'.$file['image']['name'].' is Upload Done!';
-      }
-
-      // $_SESSION['success'] = 'Upload Done!';
       $_SESSION['success'] = $this->_successMessage;
-
-      if ($this->_errorMessage !== '') {
-        throw new \Exception($this->_errorMessage);
-      }
-
+      if ($this->_errorMessage !== '') throw new \Exception($this->_errorMessage);
     } catch (\Exception $e) {
       $_SESSION['error'] = $e->getMessage();
-      // echo $e->getMessage();
-      // exit;
     }
 
-    if ($_SERVER['REQUEST_URI'] === '/admin/media.php') {
-        header('Location: ' . ADMMEDIA);
-    } else {
-        $_SESSION['modal'] = 1; // 0: close , 1: open
-        header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-    }
-
+    $this->_redirect();
     exit;
   }
 
@@ -69,6 +39,35 @@ class ImageUploader extends \MyApp\Controller {
       ];
     }
     return $files;
+  }
+
+  private function _uploadMain($files) {
+    foreach ($files as $file) {
+      $this->_validateUpload($file);
+      if ($this->_errorFlag === FALSE) {
+        $this->_errorFlag = TRUE;
+        continue;
+      }
+      $ext = $this->_validateImageType($file);
+      if ($this->_errorFlag === FALSE) {
+        $this->_errorFlag = TRUE;
+        continue;
+      }
+      $savePath = $this->_save($file, $ext);
+      $this->_createTumbnail($savePath);
+      $this->_errorFlag = TRUE;
+      $this->_successMessage .= '<p>'.$file['image']['name'].' is Upload Done!</p>';
+      // $this->_successMessage .= ($this->_successMessage === '')? $file['image']['name'].' is Upload Done!': '<br>'.$file['image']['name'].' is Upload Done!';
+    }
+  }
+
+  private function _redirect() {
+    if ($_SERVER['REQUEST_URI'] === '/admin/media.php') {
+        header('Location: ' . ADMMEDIA);
+    } else {
+        $_SESSION['modal'] = 1; // 0: close , 1: open
+        header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+    }
   }
 
   private function _createTumbnail($savePath) {
