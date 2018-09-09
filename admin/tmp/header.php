@@ -74,3 +74,5 @@ endif;
   <body>
 
   <?=  $headerView; ?>
+
+  <?php require(__DIR__ . '/msg.php'); ?>

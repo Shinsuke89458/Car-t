@@ -4,6 +4,26 @@ namespace MyApp\Controller;
 
 class Utility extends \MyApp\Controller {
 
+  /********** getResults **********/
+  public function getResults() {
+    $success = NULL;
+    $error = NULL;
+    if (isset($_SESSION['success'])) {
+      $success = $_SESSION['success'];
+      // unset($_SESSION['success']);
+    }
+    if (isset($_SESSION['error'])) {
+      $error = $_SESSION['error'];
+      // unset($_SESSION['error']);
+    }
+    return [$success, $error];
+  }
+
+  public function resetResults() {
+    if (isset($_SESSION['success'])) unset($_SESSION['success']);
+    if (isset($_SESSION['error'])) unset($_SESSION['error']);
+  }
+
   public function getCats() {
     try {
       $admin = new \MyApp\Model\Admin();

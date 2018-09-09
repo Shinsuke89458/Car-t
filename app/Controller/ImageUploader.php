@@ -14,13 +14,15 @@ class ImageUploader extends \MyApp\Controller {
   public function upload() {
     try {
 
-      $files = $this->_devideImages();
-      $this->_uploadMain($files);
+      if (!isset($_SESSION['error']) || $_SESSION['error'] === '') {
+        $files = $this->_devideImages();
+        $this->_uploadMain($files);
+      }
 
-      $_SESSION['success'] = $this->_successMessage;
+      $_SESSION['success'] .= $this->_successMessage;
       if ($this->_errorMessage !== '') throw new \Exception($this->_errorMessage);
     } catch (\Exception $e) {
-      $_SESSION['error'] = $e->getMessage();
+      $_SESSION['error'] .= $e->getMessage();
     }
 
     $this->_redirect();
@@ -62,11 +64,13 @@ class ImageUploader extends \MyApp\Controller {
   }
 
   private function _redirect() {
-    if ($_SERVER['REQUEST_URI'] === '/admin/media.php') {
+    if ($_SESSION['inmedia'] === '/admin/media.php' ||
+        $_SESSION['inmedia'] === '/admin/mediaupload.php'
+        ) {
         header('Location: ' . ADMMEDIA);
     } else {
         $_SESSION['modal'] = 1; // 0: close , 1: open
-        header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . $_SESSION['inmedia']);
     }
   }
 
@@ -165,22 +169,6 @@ class ImageUploader extends \MyApp\Controller {
         $this->_errorFlag = FALSE;
         $this->_errorMessage .= $file['image']['name'].' is '.$file['image']['error'].'<br>';
     }
-  }
-
-
-  /********** getResults **********/
-  public function getResults() {
-    $success = NULL;
-    $error = NULL;
-    if (isset($_SESSION['success'])) {
-      $success = $_SESSION['success'];
-      unset($_SESSION['success']);
-    }
-    if (isset($_SESSION['error'])) {
-      $error = $_SESSION['error'];
-      unset($_SESSION['error']);
-    }
-    return [$success, $error];
   }
 
 

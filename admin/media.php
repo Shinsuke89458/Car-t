@@ -1,15 +1,15 @@
 <?php
 require_once(__DIR__ . '/../config/config.php');
 
+$_SESSION['inmedia'] = $_SERVER['REQUEST_URI'];
+
+$utility = new MyApp\Controller\Utility();
 $token = new MyApp\Controller\Token();
 $uploader = new MyApp\Controller\ImageUploader();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $token->post();
-  $uploader->upload();
-  $token->resetToken();
-}
-list($success, $error) = $uploader->getResults();
+// list($success, $error) = $uploader->getResults();
+list($success, $error) = $utility->getResults();
+$utility->resetResults();
 $images = $uploader->getImages();
 
 ?>
@@ -20,7 +20,7 @@ $images = $uploader->getImages();
 
     <div id="imgupload_form" class="imgupload_form">
         <div class="imgupload_form_area_wrap">
-          <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_area" class="imgupload_form_area">
+          <form action="mediaupload.php" method="post" enctype="multipart/form-data" id="imgupload_form_area" class="imgupload_form_area">
           <?php /*<p>ここにファイルをドラッグ＆ドロップ</p>*/ ?>
           <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE); ?>">
           <input type="file" name="image[]" accept=".jpg, .jpeg, .png" id="imgupload_file_area" class="imgupload_file_area" multiple>
@@ -29,7 +29,7 @@ $images = $uploader->getImages();
           </form>
         </div>
         <div class="imgupload_form_btn_wrap centerbox">
-          <form action="" method="post" enctype="multipart/form-data" id="imgupload_form_btn" class="imgupload_form_btn">
+          <form action="mediaupload.php" method="post" enctype="multipart/form-data" id="imgupload_form_btn" class="imgupload_form_btn">
           <p>ここにファイルをドラッグ＆ドロップ</p>
           <p>または</p>
           <label for="imgupload_file_btn">
@@ -42,14 +42,13 @@ $images = $uploader->getImages();
         </div>
     </div>
 
-    <div class="msg-container">
-      <?php if (isset($success)): ?>
-        <div class="msg success"><?= $success; ?></div>
-      <?php endif; ?>
-      <?php if (isset($error)): ?>
-        <div class="msg error"><?= $error; ?></div>
-      <?php endif; ?>
-    </div>
+    <?php
+    if ($_SESSION['inmedia'] !== '/admin/media.php' &&
+        $_SESSION['inmedia'] !== '/admin/mediaupload.php'
+        ) {
+      require(__DIR__ . '/tmp/msg.php');
+    }
+    ?>
 
     <ul class="grid clearfix">
       <?php foreach ($images as $image): ?>
