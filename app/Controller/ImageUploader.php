@@ -7,8 +7,6 @@ class ImageUploader extends \MyApp\Controller {
   private $_imageFileName;
   private $_imageType;
   private $_errorFlag = TRUE;
-  private $_errorMessage = '';
-  private $_successMessage = '';
 
   /********** upload **********/
   public function upload() {
@@ -19,8 +17,8 @@ class ImageUploader extends \MyApp\Controller {
         $this->_uploadMain($files);
       }
 
-      $_SESSION['success'] .= $this->_successMessage;
-      if ($this->_errorMessage !== '') throw new \Exception($this->_errorMessage);
+      $_SESSION['success'] .= $this->successMessage;
+      if ($this->errorMessage !== '') throw new \Exception($this->errorMessage);
     } catch (\Exception $e) {
       $_SESSION['error'] .= $e->getMessage();
     }
@@ -58,8 +56,8 @@ class ImageUploader extends \MyApp\Controller {
       $savePath = $this->_save($file, $ext);
       $this->_createTumbnail($savePath);
       $this->_errorFlag = TRUE;
-      $this->_successMessage .= '<p>'.$file['image']['name'].' is Upload Done!</p>';
-      // $this->_successMessage .= ($this->_successMessage === '')? $file['image']['name'].' is Upload Done!': '<br>'.$file['image']['name'].' is Upload Done!';
+      $this->successMessage .= '<p>'.$file['image']['name'].' is Upload Done!</p>';
+      // $this->successMessage .= ($this->successMessage === '')? $file['image']['name'].' is Upload Done!': '<br>'.$file['image']['name'].' is Upload Done!';
     }
   }
 
@@ -120,7 +118,7 @@ class ImageUploader extends \MyApp\Controller {
     if ($res === false) {
       // throw new \Exception('Could not upload!');
       $this->_errorFlag = FALSE;
-      $this->_errorMessage .= '<p>'.$file['image']['name'].' is Could not upload!</p>';
+      $this->errorMessage .= '<p>'.$file['image']['name'].' is Could not upload!</p>';
     }
     return $savePath;
   }
@@ -141,7 +139,7 @@ class ImageUploader extends \MyApp\Controller {
       default:
         // throw new \Exception('PNG/JPEG/GIF only!');
         $this->_errorFlag = FALSE;
-        $this->_errorMessage .= '<p>'.$file['image']['name'].' is not PNG/JPEG/GIF!</p>';
+        $this->errorMessage .= '<p>'.$file['image']['name'].' is not PNG/JPEG/GIF!</p>';
     }
   }
 
@@ -150,7 +148,7 @@ class ImageUploader extends \MyApp\Controller {
     if (!isset($file['image']) || !isset($file['image']['error'])) {
       // throw new \Exception('Upload Error!');
       $this->_errorFlag = FALSE;
-      $this->_errorMessage .= '<p>'.$file['image']['name'].' is Upload Error!</p>';
+      $this->errorMessage .= '<p>'.$file['image']['name'].' is Upload Error!</p>';
     }
     // switch ($_FILES['image']['error']) {
     switch ($file['image']['error']) {
@@ -161,13 +159,13 @@ class ImageUploader extends \MyApp\Controller {
       case UPLOAD_ERR_FORM_SIZE:
         // throw new \Exception('File too large!');
         $this->_errorFlag = FALSE;
-        $this->_errorMessage .= '<p>'.$file['image']['name'].' is File too large!</p>';
+        $this->errorMessage .= '<p>'.$file['image']['name'].' is File too large!</p>';
         break;
       default:
         // throw new \Exception('Err: '.$_FILES['image']['error']);
         // throw new \Exception('Err: '.$file['image']['error']);
         $this->_errorFlag = FALSE;
-        $this->_errorMessage .= $file['image']['name'].' is '.$file['image']['error'].'<br>';
+        $this->errorMessage .= $file['image']['name'].' is '.$file['image']['error'].'<br>';
     }
   }
 

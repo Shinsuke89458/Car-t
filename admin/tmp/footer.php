@@ -7,10 +7,20 @@
 
 <script type="text/javascript">
 if (<?= $_SESSION['modal'] ?> === 1) {
-    $(window).on('load',function(){
+    $(window).on('load', function(){
         $('#mediaModal').modal('show');
     });
 }
+// if (<?php //echo $_SERVER['REQUEST_URI'] ?> === '/admin/item.php') {
+//   $('a').on('click', function() {
+//     if (window.confirm('入力内容が破棄されます。このまま、ページを切り替えてもいいでしょうか？')) {
+//       window.alert('はい');
+//     } else {
+//       window.alert('いいえ');
+//     }
+//   });
+// }
+
 </script>
 <?php
 $_SESSION['modal'] = 0; // 0: close , 1: open

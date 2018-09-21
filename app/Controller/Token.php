@@ -4,8 +4,6 @@ namespace MyApp\Controller;
 
 class Token extends \MyApp\Controller {
 
-  private $_errorMessage = '';
-
   public function __construct() {
     $this->_createToken();
   }
@@ -14,7 +12,7 @@ class Token extends \MyApp\Controller {
     try {
       $this->_validateToken();
 
-      if ($this->_errorMessage !== '') throw new \Exception($this->_errorMessage);
+      if ($this->errorMessage !== '') throw new \Exception($this->errorMessage);
     } catch (\Exception $e) {
       $_SESSION['error'] = $e->getMessage();
     }
@@ -37,7 +35,7 @@ class Token extends \MyApp\Controller {
       !isset($_POST['token']) ||
       $_SESSION['token'] !== $_POST['token']
     ) {
-      $this->_errorMessage .= 'invalid token!';
+      $this->errorMessage .= '<p>invalid token!</p>';
     }
   }
 

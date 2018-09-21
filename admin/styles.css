@@ -129,10 +129,10 @@ textarea {
 #imgupload_form_wrap .imgupload_file_btn {
   display: none;
 }
-#imgupload_form_wrap .msg-container {
-  margin-bottom: 40px;
+.msg-container {
+  margin-bottom: 20px;
 }
-#imgupload_form_wrap .msg {
+.msg {
   margin: 0 auto;
   text-align: center;
   font-weight: bold;

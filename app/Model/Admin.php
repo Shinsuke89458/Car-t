@@ -193,6 +193,8 @@ class Admin extends \MyApp\Model {
           $this->_insertProductCat($values, $product_id);
 
       $this->db->commit();
+
+      return $product_id;
   }
 
   private function _insertProducts($values) {
@@ -204,8 +206,8 @@ class Admin extends \MyApp\Model {
         ':product_imgpath' => $values['product_imgpath']
       ]);
       if (!$res) {
-        throw new \Exception('DB ERR! [insert products]');
-        exit;
+        $this->errorMessage .= '<p>DB ERR! [insert products]</p>';
+        throw new \Exception($this->errorMessage);
       }
   }
 
@@ -215,8 +217,8 @@ class Admin extends \MyApp\Model {
         ':product_ttl' => $values['product_ttl']
       ]);
       if (!$res){
-          throw new \Exception('DB ERR! [get product_id from products]');
-          exit;
+        $this->errorMessage .= '<p>DB ERR! [get product_id from products]</p>';
+        throw new \Exception($this->errorMessage);
       }
       $row = $stmt->fetch();
       return $row['product_id'];
@@ -229,8 +231,8 @@ class Admin extends \MyApp\Model {
         ':product_id' => $product_id
       ]);
       if (!$res) {
-        throw new \Exception('DB ERR! [insert productcat]');
-        exit;
+        $this->errorMessage .= '<p>DB ERR! [insert productcat]</p>';
+        throw new \Exception($this->errorMessage);
       }
   }
 

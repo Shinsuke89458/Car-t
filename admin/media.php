@@ -3,13 +3,9 @@ require_once(__DIR__ . '/../config/config.php');
 
 $_SESSION['inmedia'] = $_SERVER['REQUEST_URI'];
 
-$utility = new MyApp\Controller\Utility();
 $token = new MyApp\Controller\Token();
 $uploader = new MyApp\Controller\ImageUploader();
 
-// list($success, $error) = $uploader->getResults();
-list($success, $error) = $utility->getResults();
-$utility->resetResults();
 $images = $uploader->getImages();
 
 ?>

@@ -44,7 +44,8 @@ class Utility extends \MyApp\Controller {
       $product = $admin->getProductDB([
         'product_id' => $_GET['product_id']
       ]);
-      return $product;
+      $this->setSession((array)$product[0]);
+      // return $product;
     } catch (\Exception $e) {
       echo $e->getMessage();
       exit;

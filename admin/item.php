@@ -13,9 +13,9 @@ if (isset($_GET['cat_id'])) {
     $cat_name_ja = $utility->getCatNameJa();
 }
 if (isset($_GET['product_id'])) {
-  $product = $utility->getProduct()[0];
+  $utility->getProduct()[0];
+  // $product = $utility->getProduct()[0];
 }
-
 
 $formUrl = (!isset($_GET['product_id']))? 'insert.php': 'update.php';
 if (isset($_GET['cat_id'])) {
@@ -73,24 +73,24 @@ $imgModalFoot = '
       <form action="<?= $formUrl; ?>" method="post">
         <p class="cms-thumb">
           <?php
-          if (isset($_GET['product_id']) && $product->{'product_imgpath'} !== '') {
-            echo '<img src="'.h(SITE_URL.'/src/thumbs/'.$product->{'product_imgpath'}).'">';
+          if ($_SESSION['product_imgpath'] !== '') {
+            echo '<img src="'.h(SITE_URL.'/src/thumbs/'.$_SESSION['product_imgpath']).'">';
           } else {
             echo '<img src="https://placehold.jp/c9c9c9/ffffff/600×600.png?text=%E3%83%80%E3%83%9F%E3%83%BC%E7%94%BB%E5%83%8F" width="200">';
           }
           ?>
         </p>
         <div class="form-parts">
-          <input type="hidden" name="product_imgpath" value="<?php if (isset($_GET['product_id'])) echo $product->{'product_imgpath'}; ?>">
+          <input type="hidden" name="product_imgpath" value="<?= h($_SESSION['product_imgpath']); ?>">
         </div>
         <p class="form-parts">商品名:<br>
-          <input type="text" name="product_ttl" value="<?php if (isset($_GET['product_id'])) echo $product->{'product_ttl'}; ?>">
+          <input type="text" name="product_ttl" value="<?= h($_SESSION['product_ttl']); ?>">
         </p>
         <p class="form-parts">商品説明:<br>
-          <textarea name="product_exp"><?php if (isset($_GET['product_id'])) echo $product->{'product_exp'}; ?></textarea>
+          <textarea name="product_exp"><?= h($_SESSION['product_exp']); ?></textarea>
         </p>
         <p class="form-parts">価格:<br>
-          <input type="text" name="product_price" value="<?php if (isset($_GET['product_id'])) echo $product->{'product_price'}; ?>">
+          <input type="text" name="product_price" value="<?= h($_SESSION['product_price']); ?>">
         </p>
         <?php /*
         <p>タグ:<br>
