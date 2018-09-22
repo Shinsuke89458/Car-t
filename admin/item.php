@@ -13,8 +13,22 @@ if (isset($_GET['cat_id'])) {
     $cat_name_ja = $utility->getCatNameJa();
 }
 if (isset($_GET['product_id'])) {
-  $utility->getProduct()[0];
-  // $product = $utility->getProduct()[0];
+    $utility->getProduct()[0];
+    // $product = $utility->getProduct()[0];
+
+    if (array_key_exists('product_imgpath', $_SESSION)) {
+      $product_imgpath = h($_SESSION['product_imgpath']);
+      $product_imgthumb = '<img src="'.SITE_URL.'/src/thumbs/'.$product_imgpath.'">';
+    } else {
+      $product_imgpath = '';
+      $product_imgthumb = '<img src="https://placehold.jp/c9c9c9/ffffff/600×600.png?text=%E3%83%80%E3%83%9F%E3%83%BC%E7%94%BB%E5%83%8F" width="200">';
+    }
+    $product_ttl = (array_key_exists('product_ttl', $_SESSION)) ? h($_SESSION['product_ttl']): '';
+    $product_exp = (array_key_exists('product_exp', $_SESSION)) ? h($_SESSION['product_exp']): '';
+    $product_price = (array_key_exists('product_price', $_SESSION)) ? h($_SESSION['product_price']): '';
+} else {
+    $product_imgthumb = '<img src="https://placehold.jp/c9c9c9/ffffff/600×600.png?text=%E3%83%80%E3%83%9F%E3%83%BC%E7%94%BB%E5%83%8F" width="200">';
+    $product_imgpath = $product_ttl = $product_exp = $product_price = '';
 }
 
 $formUrl = (!isset($_GET['product_id']))? 'insert.php': 'update.php';
@@ -71,26 +85,18 @@ $imgModalFoot = '
       <?= $imgModalFoot; ?>
 
       <form action="<?= $formUrl; ?>" method="post">
-        <p class="cms-thumb">
-          <?php
-          if ($_SESSION['product_imgpath'] !== '') {
-            echo '<img src="'.h(SITE_URL.'/src/thumbs/'.$_SESSION['product_imgpath']).'">';
-          } else {
-            echo '<img src="https://placehold.jp/c9c9c9/ffffff/600×600.png?text=%E3%83%80%E3%83%9F%E3%83%BC%E7%94%BB%E5%83%8F" width="200">';
-          }
-          ?>
+        <p class="cms-thumb"><?= $product_imgthumb; ?></p>
+        <p class="form-parts">
+          <input type="hidden" name="product_imgpath" value="<?= $product_imgpath; ?>">
         </p>
-        <div class="form-parts">
-          <input type="hidden" name="product_imgpath" value="<?= h($_SESSION['product_imgpath']); ?>">
-        </div>
         <p class="form-parts">商品名:<br>
-          <input type="text" name="product_ttl" value="<?= h($_SESSION['product_ttl']); ?>">
+          <input type="text" name="product_ttl" value="<?= $product_ttl; ?>">
         </p>
         <p class="form-parts">商品説明:<br>
-          <textarea name="product_exp"><?= h($_SESSION['product_exp']); ?></textarea>
+          <textarea name="product_exp"><?= $product_exp; ?></textarea>
         </p>
         <p class="form-parts">価格:<br>
-          <input type="text" name="product_price" value="<?= h($_SESSION['product_price']); ?>">
+          <input type="text" name="product_price" value="<?= $product_price; ?>">
         </p>
         <?php /*
         <p>タグ:<br>
@@ -106,6 +112,16 @@ $imgModalFoot = '
 
     </div>
 
+<?php
+// $successFlag = (!isset($success) || $success === '');
+// $errorFlag = (!isset($error) || $error === '');
+// if ($errorFlag) {
+//     unset($_SESSION['product_imgpath']);
+//     unset($_SESSION['product_ttl']);
+//     unset($_SESSION['product_exp']);
+//     unset($_SESSION['product_price']);
+// }
 
+?>
 
 <?php require(__DIR__ . '/tmp/footer.php'); ?>
