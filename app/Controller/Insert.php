@@ -8,7 +8,7 @@ class Insert extends \MyApp\Controller {
 
   public function run() {
     try {
-      $this->setSession($_POST);
+      setSession($_POST);
       $this->validateInputval();
       $this->_insert();
 
@@ -20,6 +20,7 @@ class Insert extends \MyApp\Controller {
 
     $location = 'Location: ' . ADMITEM . '?cat_id=' . $_GET['cat_id'];
     if ($this->_productId !== NULL) $location .= '&product_id=' . $this->_productId;
+    $_SESSION['redirect'] = 1; // 0: direct , 1: redirect
 
     header($location);
     exit;
@@ -34,6 +35,8 @@ class Insert extends \MyApp\Controller {
       'product_price' => $_POST['product_price'],
       'product_imgpath' => $_POST['product_imgpath']
     ]);
+
+    $this->successMessage .= '<p>'.$_POST['product_ttl'].' is Insert Done!</p>';
   }
 
 

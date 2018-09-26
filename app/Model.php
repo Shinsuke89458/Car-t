@@ -4,6 +4,8 @@ namespace MyApp;
 
 class Model {
   protected $db;
+  protected $errorMessage = '';
+  protected $successMessage = '';
 
   public function __construct() {
     try {

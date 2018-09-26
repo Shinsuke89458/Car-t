@@ -11,7 +11,22 @@ if (<?= $_SESSION['modal'] ?> === 1) {
         $('#mediaModal').modal('show');
     });
 }
-// if (<?php //echo $_SERVER['REQUEST_URI'] ?> === '/admin/item.php') {
+
+// $('.add-newpost').on('click', function() {
+//   var add-newpost-flag = 1;
+//   <?php
+//
+//   resetSession('/^product_/');
+//   ?>
+// });
+<?php
+// if (isset($_SESSION['product_id'])) {
+//   $utility->isInputChangeUpdate();
+// } else {
+//   $utility->isInputChangeInsert();
+// }
+?>
+// if (<?php //$_SERVER['REQUEST_URI'] ?> === '/admin/item.php') {
 //   $('a').on('click', function() {
 //     if (window.confirm('入力内容が破棄されます。このまま、ページを切り替えてもいいでしょうか？')) {
 //       window.alert('はい');
@@ -24,6 +39,10 @@ if (<?= $_SESSION['modal'] ?> === 1) {
 </script>
 <?php
 $_SESSION['modal'] = 0; // 0: close , 1: open
+
+resetSession('/^product_/');
+$_SESSION['redirect'] = 0; // 0: direct , 1: redirect
+
 ?>
 
 </body>

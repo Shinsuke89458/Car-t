@@ -11,10 +11,6 @@ class Controller {
 
   }
 
-  protected function setSession($array) {
-    $_SESSION = array_merge($_SESSION, $array);
-  }
-
   protected function validateInputval() {
     // not set
     // if (!isset($_POST['product_imgpath']) ||$_POST['product_imgpath'] === '') throw new \Exception('Not set product_imgpath!');

@@ -4,24 +4,26 @@ namespace MyApp\Controller;
 
 class Utility extends \MyApp\Controller {
 
+  public function __construct() {
+    $this->_initResults();
+  }
+
   /********** getResults **********/
   public function getResults() {
-    $success = NULL;
-    $error = NULL;
-    if (isset($_SESSION['success'])) {
-      $success = $_SESSION['success'];
-      // unset($_SESSION['success']);
-    }
-    if (isset($_SESSION['error'])) {
-      $error = $_SESSION['error'];
-      // unset($_SESSION['error']);
-    }
+    $success = $error = NULL;
+    if (isset($_SESSION['success'])) $success = $_SESSION['success'];
+    if (isset($_SESSION['error'])) $error = $_SESSION['error'];
     return [$success, $error];
   }
 
   public function resetResults() {
     if (isset($_SESSION['success'])) unset($_SESSION['success']);
     if (isset($_SESSION['error'])) unset($_SESSION['error']);
+  }
+
+  private function _initResults() {
+    if (!isset($_SESSION['success'])) $_SESSION['success'] = '';
+    if (!isset($_SESSION['error'])) $_SESSION['error'] = '';
   }
 
   public function getCats() {
@@ -44,7 +46,7 @@ class Utility extends \MyApp\Controller {
       $product = $admin->getProductDB([
         'product_id' => $_GET['product_id']
       ]);
-      $this->setSession((array)$product[0]);
+      setSession((array)$product[0]);
       // return $product;
     } catch (\Exception $e) {
       echo $e->getMessage();
