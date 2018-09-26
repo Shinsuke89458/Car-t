@@ -19,8 +19,8 @@ class Admin extends \MyApp\Model {
       ':product_id' => $values['product_id']
     ]);
     if (!$res) {
-      throw new \Exception('DB ERR! [get product]');
-      exit;
+      $this->errorMessage .= '<p>DB ERR! [get product]</p>';
+      throw new \Exception($this->errorMessage);
     }
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchAll();
@@ -46,8 +46,8 @@ class Admin extends \MyApp\Model {
       ':cat_id' => $values['cat_id']
     ]);
     if (!$res) {
-      throw new \Exception('DB ERR! [get product_id]');
-      exit;
+      $this->errorMessage .= '<p>DB ERR! [get product_id]</p>';
+      throw new \Exception($this->errorMessage);
     }
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     return $stmt->fetchAll();
@@ -113,8 +113,8 @@ class Admin extends \MyApp\Model {
       ':cat_id' => $values['cat_id']
     ]);
     if (!$res) {
-      throw new \Exception('DB ERR! [get cat_name_ja]');
-      exit;
+      $this->errorMessage .= '<p>DB ERR! [get cat_name_ja]</p>';
+      throw new \Exception($this->errorMessage);
     }
     $row = $stmt->fetch();
     return $row['cat_name_ja'];
@@ -136,8 +136,8 @@ class Admin extends \MyApp\Model {
       ':product_id' => $values['product_id'],
     ]);
     if (!$res) {
-      throw new \Exception('DB ERR! [delete from products]');
-      exit;
+      $this->errorMessage .= '<p>DB ERR! [delete from products]</p>';
+      throw new \Exception($this->errorMessage);
     }
   }
 
@@ -147,8 +147,8 @@ class Admin extends \MyApp\Model {
       ':product_id' => $values['product_id'],
     ]);
     if (!$res) {
-      throw new \Exception('DB ERR! [delete from productcat]');
-      exit;
+      $this->errorMessage .= '<p>DB ERR! [delete from productcat]</p>';
+      throw new \Exception($this->errorMessage);
     }
   }
 
@@ -174,8 +174,8 @@ class Admin extends \MyApp\Model {
       ':product_imgpath' => $values['product_imgpath']
     ]);
     if (!$res) {
-      throw new \Exception('DB ERR! [update products]');
-      exit;
+      $this->errorMessage .= '<p>DB ERR! [update products]</p>';
+      throw new \Exception($this->errorMessage);
     }
   }
 

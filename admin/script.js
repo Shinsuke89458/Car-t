@@ -2,7 +2,7 @@
   imgupload
 ***********/
 $(function() {
-  $('.msg').fadeOut(10000);
+  $('.msg').fadeOut(3000);
   $('#imgupload_file_area').on('change', function() {
     $('#imgupload_form_area').submit();
   });

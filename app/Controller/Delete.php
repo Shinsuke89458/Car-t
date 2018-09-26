@@ -12,13 +12,16 @@ class Delete extends \MyApp\Controller {
       }
       // delete
       $this->_delete();
-      // redirect
-      header('Location: ' . ADMITEMLIST . '?cat_id=' . $_GET['cat_id']);
-      exit;
+
+      $_SESSION['success'] .= $this->successMessage;
+      if ($this->errorMessage !== '') throw new \Exception($this->errorMessage);
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
+      $_SESSION['error'] .= $e->getMessage();
     }
+
+    // redirect
+    header('Location: ' . ADMITEMLIST . '?cat_id=' . $_GET['cat_id'] . '&page=1');
+    exit;
   }
 
   private function _delete() {
@@ -26,6 +29,8 @@ class Delete extends \MyApp\Controller {
     $admin->deleteDB([
       'product_id' => $_GET['product_id']
     ]);
+
+    $this->successMessage .= '<p>'.$_GET['product_ttl'].' is Delete Done!</p>';
   }
 
 

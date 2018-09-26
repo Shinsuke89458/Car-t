@@ -10,13 +10,16 @@ class Update extends \MyApp\Controller {
       $this->validateInputval();
       // update
       $this->_update();
-      // redirect
-      header('Location: ' . ADMITEM . '?cat_id=' . $_GET['cat_id'] . '&product_id=' . $_GET['product_id']);
-      exit;
+
+      $_SESSION['success'] .= $this->successMessage;
+      if ($this->errorMessage !== '') throw new \Exception($this->errorMessage);
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
+      $_SESSION['error'] .= $e->getMessage();
     }
+
+    // redirect
+    header('Location: ' . ADMITEM . '?cat_id=' . $_GET['cat_id'] . '&product_id=' . $_GET['product_id']);
+    exit;
   }
 
   private function _update() {
@@ -29,6 +32,8 @@ class Update extends \MyApp\Controller {
       'product_price' => $_POST['product_price'],
       'product_imgpath' => $_POST['product_imgpath']
     ]);
+
+    $this->successMessage .= '<p>'.$_POST['product_ttl'].' is Update Done!</p>';
   }
 
 

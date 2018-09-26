@@ -1,12 +1,8 @@
 <?php
-
 $qsstart = strpos($_SERVER['REQUEST_URI'], '?');
 $url = ($qsstart)? substr($_SERVER['REQUEST_URI'], 0, $qsstart++): $_SERVER['REQUEST_URI'];
 
 $utility = new MyApp\Controller\Utility();
-
-list($success, $error) = $utility->getResults();
-$utility->resetResults();
 
 $cats = $utility->getCats();
 

@@ -4,9 +4,9 @@ namespace MyApp\Controller;
 
 class Utility extends \MyApp\Controller {
 
-  public function __construct() {
-    $this->_initResults();
-  }
+  // public function __construct() {
+  //   $this->_initResults();
+  // }
 
   /********** getResults **********/
   public function getResults() {
@@ -21,10 +21,10 @@ class Utility extends \MyApp\Controller {
     if (isset($_SESSION['error'])) unset($_SESSION['error']);
   }
 
-  private function _initResults() {
-    if (!isset($_SESSION['success'])) $_SESSION['success'] = '';
-    if (!isset($_SESSION['error'])) $_SESSION['error'] = '';
-  }
+  // private function _initResults() {
+  //   if (!isset($_SESSION['success'])) $_SESSION['success'] = '';
+  //   if (!isset($_SESSION['error'])) $_SESSION['error'] = '';
+  // }
 
   public function getCats() {
     try {
@@ -32,8 +32,7 @@ class Utility extends \MyApp\Controller {
       $cats = $admin->getCatsDB();
       return $cats;
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
+      $_SESSION['error'] = $e->getMessage();
     }
   }
 
@@ -49,8 +48,7 @@ class Utility extends \MyApp\Controller {
       setSession((array)$product[0]);
       // return $product;
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
+      $_SESSION['error'] = $e->getMessage();
     }
   }
 
@@ -58,6 +56,7 @@ class Utility extends \MyApp\Controller {
     try {
       // validate
       if (!isset($_GET['cat_id']) || $_GET['cat_id'] === '') throw new \Exception('Not set qs cat_id!');
+      if (!isset($_GET['page']) || $_GET['page'] === '') throw new \Exception('Not set qs page!');
       // getProductsDB
       $admin = new \MyApp\Model\Admin();
       $products = $admin->getProductsDB([
@@ -66,8 +65,7 @@ class Utility extends \MyApp\Controller {
       ]);
       return $products;
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
+      $_SESSION['error'] = $e->getMessage();
     }
   }
 
@@ -82,8 +80,7 @@ class Utility extends \MyApp\Controller {
       ]);
       return $cat_name_ja;
     } catch (\Exception $e) {
-      echo $e->getMessage();
-      exit;
+      $_SESSION['error'] = $e->getMessage();
     }
   }
 

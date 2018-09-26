@@ -33,7 +33,7 @@ if (isset($_GET['cat_id'])) {
             <p><a href="item.php?cat_id=' . h($_GET['cat_id']) . '&product_id=' . h($product->{'product_id'}) . '">編集</a></p>
           </div>
           <div class="col-sm-1">
-            <p><a href="delete.php?cat_id=' . h($_GET['cat_id']) . '&product_id=' . h($product->{'product_id'}) . '">削除</a></p>
+            <p><a href="delete.php?cat_id=' . h($_GET['cat_id']) . '&product_id=' . h($product->{'product_id'}) . '&product_ttl=' . h($product->{'product_ttl'}) . '">削除</a></p>
           </div>
         </li>
         ';
