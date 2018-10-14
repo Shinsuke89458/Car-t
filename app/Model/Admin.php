@@ -236,5 +236,18 @@ class Admin extends \MyApp\Model {
       }
   }
 
+  public function dupProductTtlDB($values) {
+    $stmt = $this->db->prepare('SELECT * FROM products WHERE product_ttl = :product_ttl');
+    $res = $stmt->execute([
+      ':product_ttl' => $values['product_ttl']
+    ]);
+    if (!$res) {
+      $this->errorMessage .= '<p>DB ERR! [get dupProductTtl]</p>';
+      throw new \Exception($this->errorMessage);
+    }
+    $result = ($stmt->rowCount() !== 0)? true: false;
+    return $result;
+  }
+
 
 }
