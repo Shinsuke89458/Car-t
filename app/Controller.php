@@ -29,7 +29,7 @@ class Controller {
     }
 
     // duplicate
-    if ($this->_dupProductTtl()) $this->errorMessage .= '<p>duplicate product_ttl!</p>';
+    if (!isset($_GET['product_id']) && $this->_dupProductTtl()) $this->errorMessage .= '<p>duplicate product_ttl!</p>';
 
     if ($this->errorMessage !== '') throw new \Exception($this->errorMessage);
   }
