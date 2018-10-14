@@ -191,7 +191,12 @@ class ImageUploader extends \MyApp\Controller {
         }
       }
       array_multisort($files, SORT_DESC, $images);
-      return $images;
+
+      return [
+        'imagesNum' => count($images),
+        'imagesList' => array_slice($images, ($_GET['page'] - 1) * MEDIA_PER_PAGE, MEDIA_PER_PAGE),
+      ];
+      // return $images;
 
     endif;
 

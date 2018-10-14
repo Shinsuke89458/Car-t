@@ -90,7 +90,7 @@ textarea {
 #imgupload_form_wrap .imgupload_form_area_wrap {
   height: 100%;
 }
-#imgupload_form_wrap li {
+#imgupload_form_wrap .grid-media li {
   position: relative;
   float: left;
   width: 260px;
@@ -158,6 +158,11 @@ textarea {
 }
 #imgupload_form_wrap .selected-img {
   border: 2px solid #00f;
+}
+
+/* pager */
+.pager-item-current {
+  text-decoration: underline;
 }
 
 /* overwrite Bootstrap */
