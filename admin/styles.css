@@ -157,7 +157,7 @@ textarea {
   display: block;
 }
 #imgupload_form_wrap .selected-img {
-  border: 2px solid #00f;
+  border: 2px solid #00f !important;
 }
 
 /* pager */

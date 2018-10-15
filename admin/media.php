@@ -66,9 +66,8 @@ if (
   ceil(5 / 5) ... 1
   ceil(7 / 5) ... 2
   */
+  $_SESSION['modal'] = 1; // 0: close , 1: open
   // $qsCat = (isset($_GET['cat_id']))? '?cat_id=' . h($_GET['cat_id']): '';
-  $allPageNum = ceil($imagesNum / MEDIA_PER_PAGE);
-  $pageList = '<li class="pager-item list-inline-item"><a href="media.php?page=1">最初へ</a></li>';
   $qsArr = $_GET;
   unset($qsArr['page']);
   $inmedia_rmqs = strtok($_SESSION['inmedia'], '?');
@@ -76,6 +75,10 @@ if (
     $inmedia_rmqs .= (reset($qsArr) === $value)? '?': '&';
     $inmedia_rmqs .= $key . '=' . $value;
   }
+  $allPageNum = ceil($imagesNum / MEDIA_PER_PAGE);
+  $qsPage = (empty($qsArr) || !isset($qsArr))? '?': '&';
+  $qsPage .= 'page=1';
+  $pageList = '<li class="pager-item list-inline-item"><a href="' . $inmedia_rmqs . $qsPage . '">最初へ</a></li>';
   for ($pageNum = 1; $pageNum <= $allPageNum; $pageNum++) {
     $class = 'pager-item list-inline-item';
     if ($_GET['page'] == $pageNum) $class .= ' pager-item-current';
@@ -88,7 +91,9 @@ if (
     $qsPage .= 'page=' .  $pageNum;
     $pageList .= '<li class="' . $class . '"><a href="' . $inmedia_rmqs . $qsPage . '">' . $pageNum . '</a></li>';
   }
-  $pageList .= '<li class="pager-item list-inline-item"><a href="media.php?page=' . $allPageNum . '">最後へ</a></li>';
+  $qsPage = (empty($qsArr) || !isset($qsArr))? '?': '&';
+  $qsPage .= 'page=' .  $allPageNum;
+  $pageList .= '<li class="pager-item list-inline-item"><a href="' . $inmedia_rmqs . $qsPage . '">最後へ</a></li>';
 
 } else {
 
