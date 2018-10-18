@@ -165,6 +165,10 @@ textarea {
   text-decoration: underline;
 }
 
+#pager_media li {
+  cursor: pointer;
+}
+
 /* overwrite Bootstrap */
 @media (min-width: 576px) {
   .modal-dialog {

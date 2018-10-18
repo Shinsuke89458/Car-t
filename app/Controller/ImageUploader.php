@@ -192,9 +192,12 @@ class ImageUploader extends \MyApp\Controller {
       }
       array_multisort($files, SORT_DESC, $images);
 
+      $imageList_st = (isset($_GET['page']))? ($_GET['page'] - 1) * MEDIA_PER_PAGE: 0;
+
       return [
         'imagesNum' => count($images),
-        'imagesList' => array_slice($images, ($_GET['page'] - 1) * MEDIA_PER_PAGE, MEDIA_PER_PAGE),
+        'imagesList' => array_slice($images, $imageList_st, MEDIA_PER_PAGE),
+        // 'imagesList' => array_slice($images, ($_POST['page'] - 1) * MEDIA_PER_PAGE, MEDIA_PER_PAGE),
       ];
       // return $images;
 

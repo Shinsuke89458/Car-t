@@ -1,14 +1,55 @@
-/***********
-  imgupload
-***********/
 $(function() {
+  'use strict';
+
+  /* msg */
   $('.msg').fadeOut(3000);
+
+  /* media */
   $('#imgupload_file_area').on('change', function() {
     $('#imgupload_form_area').submit();
   });
   $('#imgupload_file_btn').on('change', function() {
     $('#imgupload_form_btn').submit();
   });
+  mediaEvent();
+
+  /* media ajax */
+  $('#pager_media li').on('click', function() {
+    var page = $(this).data('page');
+
+    if ($('#pager_media li').hasClass('pager-item-current')) {
+      $('#pager_media li').removeClass('pager-item-current');
+    }
+    $('#pager_media li.pager-item' + page).addClass('pager-item-current');
+
+
+    $.get('_ajax.php', {
+      page: page,
+      // token:
+    }, function(res) {
+      if (res !== 0) {
+        var imagesNum = res['imagesNum'];
+        var imagesList = res['imagesList'];
+        $('#media li').remove();
+        if (location.href.match(/\/admin\/media.php/) !== null) {
+          imagesList.forEach(function($value) {
+            $('#media').append('<li class="grid-item"><a href="http://192.168.33.12:8000/src/images/' + basename($value) + '" target="_blank"><img src="http://192.168.33.12:8000/src/' + $value + '" alt=""></a></li>');
+          });
+        } else {
+          imagesList.forEach(function($value) {
+            $('#media').append('<li class="grid-item"><img src="http://192.168.33.12:8000/src/' + $value + '" alt=""><div class="buttonarea list-inline"><div class="list-inline-item btn btn-dark"><a href="http://192.168.33.12:8000/src/images/' + basename($value) + '" target="_blank">画像を見る</a></div><div class="list-inline-item btn btn-dark btn-imgselect">画像を選択</div></div></li>');
+            mediaEvent();
+          });
+        }
+
+      }
+    });
+  });
+
+});
+
+
+function mediaEvent() {
   $('.btn-imgselect').on('click', function() {
     $(this).parents('li').addClass('selected-img');
     $(this).parents('li').siblings().removeClass('selected-img');
@@ -23,7 +64,7 @@ $(function() {
   $('.btn-closed').on('click', function() {
     $('#imgupload_form_wrap li').removeClass('selected-img');
   });
-});
+}
 
 function basename(path) {
     return path.replace(/\\/g,'/').replace( /.*\//, '' );

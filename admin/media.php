@@ -3,22 +3,8 @@ require_once(__DIR__ . '/../config/config.php');
 
 $_SESSION['inmedia'] = $_SERVER['REQUEST_URI'];
 
-// var_dump(reset($qsArr));
-// var_dump($inmedia_rmqs);
-// var_dump(in_array('page', array_keys($_GET)));
-// var_dump($_SERVER['QUERY_STRING']);
-// var_dump($_SESSION['inmedia']);
-// var_dump(strtok($_SESSION['inmedia'], '?'));
-
 $token = new MyApp\Controller\Token();
 $uploader = new MyApp\Controller\ImageUploader();
-
-if (
-  preg_match('/^\/admin\/media.php/', $_SESSION['inmedia']) &&
-  !isset($_GET['page'])
-) {
-    header('Location: ' . ADMMEDIA . '?page=1');
-  }
 
 $images = $uploader->getImages();
 $imagesNum = $images['imagesNum'];
@@ -66,34 +52,14 @@ if (
   ceil(5 / 5) ... 1
   ceil(7 / 5) ... 2
   */
-  $_SESSION['modal'] = 1; // 0: close , 1: open
-  // $qsCat = (isset($_GET['cat_id']))? '?cat_id=' . h($_GET['cat_id']): '';
-  $qsArr = $_GET;
-  unset($qsArr['page']);
-  $inmedia_rmqs = strtok($_SESSION['inmedia'], '?');
-  foreach($qsArr as $key => $value) {
-    $inmedia_rmqs .= (reset($qsArr) === $value)? '?': '&';
-    $inmedia_rmqs .= $key . '=' . $value;
-  }
   $allPageNum = ceil($imagesNum / MEDIA_PER_PAGE);
-  $qsPage = (empty($qsArr) || !isset($qsArr))? '?': '&';
-  $qsPage .= 'page=1';
-  $pageList = '<li class="pager-item list-inline-item"><a href="' . $inmedia_rmqs . $qsPage . '">最初へ</a></li>';
+  $pageList = '<li class="pager-item list-inline-item" data-page="1">最初へ</li>';
   for ($pageNum = 1; $pageNum <= $allPageNum; $pageNum++) {
-    $class = 'pager-item list-inline-item';
-    if ($_GET['page'] == $pageNum) $class .= ' pager-item-current';
-    // if (in_array('page', array_keys($_GET))) {
-    //   $addqs = '?page=' . $pageNum;
-    // } else {
-    //   $addqs = '&page=' . $pageNum;
-    // }
-    $qsPage = (empty($qsArr) || !isset($qsArr))? '?': '&';
-    $qsPage .= 'page=' .  $pageNum;
-    $pageList .= '<li class="' . $class . '"><a href="' . $inmedia_rmqs . $qsPage . '">' . $pageNum . '</a></li>';
+    $class = 'pager-item pager-item' . $pageNum . ' list-inline-item';
+    if ($pageNum == 1) $class .= ' pager-item-current';
+    $pageList .= '<li class="' . $class . '" data-page="' . $pageNum . '">' . $pageNum . '</li>';
   }
-  $qsPage = (empty($qsArr) || !isset($qsArr))? '?': '&';
-  $qsPage .= 'page=' .  $allPageNum;
-  $pageList .= '<li class="pager-item list-inline-item"><a href="' . $inmedia_rmqs . $qsPage . '">最後へ</a></li>';
+  $pageList .= '<li class="pager-item list-inline-item" data-page="' . $allPageNum . '">最後へ</li>';
 
 } else {
 
@@ -132,18 +98,18 @@ if (
     </div>
 
     <?php
-    if (preg_match('/^\/admin\/media.php/', $_SESSION['inmedia']) &&
-        preg_match('/^\/admin\/mediaupload.php/', $_SESSION['inmedia'])
+    if (!preg_match('/^\/admin\/media.php/', $_SESSION['inmedia']) &&
+        !preg_match('/^\/admin\/mediaupload.php/', $_SESSION['inmedia'])
         ) {
       require(__DIR__ . '/tmp/msg.php');
     }
     ?>
 
-    <ul class="grid grid-media clearfix">
+    <ul id="media" class="grid grid-media clearfix">
       <?= $viewMedia; ?>
     </ul>
 
-    <ul class="pager list-inline">
+    <ul id="pager_media" class="pager list-inline">
       <?= $pageList; ?>
     </ul>
 
