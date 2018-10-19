@@ -52,9 +52,6 @@ $imgModalFoot = '
 </div>
 ';
 
-// var_dump($_SESSION);
-// exit;
-
 ?>
 
 <?php require(__DIR__ . '/tmp/header.php'); ?>
@@ -87,9 +84,9 @@ $imgModalFoot = '
           }
           ?>
         </p>
-        <div class="form-parts">
+        <p class="form-parts">
           <input type="hidden" name="product_imgpath" value="<?= h($product_imgpath); ?>">
-        </div>
+        </p>
         <p class="form-parts">商品名:<br>
           <input type="text" name="product_ttl" value="<?= h($product_ttl); ?>">
         </p>

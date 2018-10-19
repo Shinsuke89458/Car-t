@@ -4,6 +4,22 @@ $(function() {
   /* msg */
   $('.msg').fadeOut(3000);
 
+  /* item form change caution */
+  var isChanged = false;
+  if (location.pathname.match(/\/admin\/item.php/) !== null) {
+    $(window).bind('beforeunload', function() {
+      if (isChanged) {
+        return 'このページを離れようとしています。';
+      }
+    });
+    $('form').change(function() {
+      isChanged = true;
+    });
+    $('input[type="submit"]').click(function() {
+      isChanged = false;
+    });
+  }
+
   /* media */
   $('#imgupload_file_area').on('change', function() {
     $('#imgupload_form_area').submit();
@@ -58,7 +74,7 @@ function mediaEvent() {
     var imgsrc = $('li.selected-img img').attr('src');
     var imgname = basename(imgsrc);
     $('.cms-thumb img').attr('src', imgsrc);
-    $('input[name=product_imgpath]').attr('value', imgname);
+    $('input[name=product_imgpath]').attr('value', imgname).change(); // item form change caution ignition
     $('#imgupload_form_wrap li').removeClass('selected-img');
   });
   $('.btn-closed').on('click', function() {
