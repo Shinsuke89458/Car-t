@@ -7,7 +7,7 @@ $(function() {
   /* item form change caution */
   var isChanged = false;
   if (location.pathname.match(/\/admin\/item.php/) !== null) {
-    $(window).bind('beforeunload', function() {
+    $(window).on('beforeunload', function() {
       if (isChanged) {
         return 'このページを離れようとしています。';
       }
