@@ -11,7 +11,8 @@ create table products (
   product_exp varchar(255),
   product_price int,
   product_imgpath varchar(100),
-  product_indate datetime
+  product_state enum('show', 'draft') default 'draft',
+  product_indate datetime,
 );
 
 drop table if exists users;

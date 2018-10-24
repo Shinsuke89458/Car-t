@@ -72,9 +72,17 @@ textarea {
 }
 
 .price {
-    font-size: 24px;
-    font-style: italic;
-    color: #f00;
+  font-size: 24px;
+  font-style: italic;
+  color: #f00;
+}
+
+.state {
+  font-weight: bold;
+}
+
+.state-show {
+  color: #00197f;
 }
 
 .heading-post {

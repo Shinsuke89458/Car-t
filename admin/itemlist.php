@@ -19,15 +19,20 @@ if (isset($_GET['cat_id'])) {
       // create $viewItem
       foreach ($productsList as $product) {
         $product_price = ($product->{'product_price'} != 0)? h($product->{'product_price'}): 'お問い合わせ価格';
+        if (h($product->{'product_state'}) === 'show') $product_state = '公開中';
+        if (h($product->{'product_state'}) === 'draft') $product_state = '下書き';
         $viewItem .= '
         <li class="row align-items-center">
           <div class="col-sm-3">
             <p class="cms-thumb"><img src="' . h(SITE_URL.'/src/thumbs/'.$product->{'product_imgpath'}) . '" alt=""></p>
           </div>
-          <div class="col-sm-7">
+          <div class="col-sm-6">
             <h2>' . h($product->{'product_ttl'}) . '</h2>
             <p>' . h($product->{'product_exp'}) . '</p>
             <p class="price">' . $product_price . '</p>
+          </div>
+          <div class="col-sm-1">
+            <p class="state state-' . h($product->{'product_state'}) . '">' . $product_state . '</p>
           </div>
           <div class="col-sm-1">
             <p><a href="item.php?cat_id=' . h($_GET['cat_id']) . '&product_id=' . h($product->{'product_id'}) . '">編集</a></p>

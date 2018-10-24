@@ -23,6 +23,7 @@ class Update extends \MyApp\Controller {
   }
 
   private function _update() {
+    if (isset($_POST['product_state'])) $product_state = $_POST['product_state'];
     $admin = new \MyApp\Model\Admin();
     $admin->updateDB([
       'cat_id' => $_POST['cat_id'],
@@ -30,6 +31,7 @@ class Update extends \MyApp\Controller {
       'product_ttl' => $_POST['product_ttl'],
       'product_exp' => $_POST['product_exp'],
       'product_price' => $_POST['product_price'],
+      'product_state' => $product_state,
       'product_imgpath' => $_POST['product_imgpath']
     ]);
 

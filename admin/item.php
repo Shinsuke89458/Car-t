@@ -20,6 +20,7 @@ $product_imgpath = (isset($_SESSION['product_imgpath']))? $_SESSION['product_img
 $product_ttl = (isset($_SESSION['product_ttl']))? $_SESSION['product_ttl']: '';
 $product_exp = (isset($_SESSION['product_exp']))? $_SESSION['product_exp']: '';
 $product_price = (isset($_SESSION['product_price']))? $_SESSION['product_price']: '';
+$product_state = (isset($_SESSION['product_state']))? $_SESSION['product_state']: '';
 
 $formUrl = (!isset($_GET['product_id']))? 'insert.php': 'update.php';
 if (isset($_GET['cat_id'])) {
@@ -101,10 +102,47 @@ $imgModalFoot = '
           <input type="text" name="product_tag" value="">
         </p>
         */ ?>
+        <?php
+        if (isset($_GET['product_id'])) {
+          $state_view = '
+          <p class="form-parts">公開状態:<br>
+            <select name="product_state">';
+          $product_state_arr = [
+            'show' => '公開中',
+            'draft' => '下書き',
+          ];
+          foreach ($product_state_arr as $key => $value) {
+            $selected = (h($product_state) === $key)? ' selected': '';
+            $state_view .= '
+              <option value="' . $key . '"' . $selected . '>' . $value . '</option>
+            ';
+          }
+          $state_view .= '
+            </select>
+          </p>
+          ';
+          echo $state_view;
+        }
+        ?>
         <input type="hidden" name="cat_id" value="<?php if (isset($_GET['cat_id'])) echo h($_GET['cat_id']); ?>">
         <input type="hidden" name="product_id" value="<?php if (isset($_GET['product_id'])) echo h($_GET['product_id']); ?>">
-        <input type="hidden" name="store_id" value="">
-        <p><input type="submit" value="<?= (!isset($_GET['product_id'])) ? '公開': '更新'; ?>"></p>
+        <?php /*<input type="hidden" name="store_id" value="">*/ ?>
+        <?php
+        if (!isset($_GET['product_id'])) {
+          echo '
+          <div class="form-inline">
+          ';
+        }
+        ?>
+        <p style="margin-right: 5px;"><input type="submit" class="btn btn-primary" name="<?= (!isset($_GET['product_id'])) ? 'show': 'update'; ?>" value="<?= (!isset($_GET['product_id'])) ? '公開': '更新'; ?>"></p>
+        <?php
+        if (!isset($_GET['product_id'])) {
+          echo '
+            <p><input type="submit" class="btn btn-dark" name="draft" value="下書きとして保存"></p>
+          </div>
+          ';
+        }
+        ?>
         <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
       </form>
 

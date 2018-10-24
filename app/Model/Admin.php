@@ -165,12 +165,13 @@ class Admin extends \MyApp\Model {
   }
 
   private function _updateProducts($values) {
-    $stmt = $this->db->prepare("UPDATE products SET product_ttl = :product_ttl, product_exp = :product_exp, product_price = :product_price, product_imgpath = :product_imgpath, product_indate = now() WHERE product_id = :product_id");
+    $stmt = $this->db->prepare("UPDATE products SET product_ttl = :product_ttl, product_exp = :product_exp, product_price = :product_price, product_state = :product_state, product_imgpath = :product_imgpath, product_indate = now() WHERE product_id = :product_id");
     $res = $stmt->execute([
       ':product_id' => $values['product_id'],
       ':product_ttl' => $values['product_ttl'],
       ':product_exp' => $values['product_exp'],
       ':product_price' => $values['product_price'],
+      ':product_state' => $values['product_state'],
       ':product_imgpath' => $values['product_imgpath']
     ]);
     if (!$res) {
@@ -198,11 +199,12 @@ class Admin extends \MyApp\Model {
   }
 
   private function _insertProducts($values) {
-      $stmt = $this->db->prepare("INSERT INTO products(product_ttl, product_exp, product_price, product_imgpath, product_indate) VALUES(:product_ttl, :product_exp, :product_price, :product_imgpath, now())");
+      $stmt = $this->db->prepare("INSERT INTO products(product_ttl, product_exp, product_price, product_state, product_imgpath, product_indate) VALUES(:product_ttl, :product_exp, :product_price, :product_state, :product_imgpath, now())");
       $res = $stmt->execute([
         ':product_ttl' => $values['product_ttl'],
         ':product_exp' => $values['product_exp'],
         ':product_price' => $values['product_price'],
+        ':product_state' => $values['product_state'],
         ':product_imgpath' => $values['product_imgpath']
       ]);
       if (!$res) {
