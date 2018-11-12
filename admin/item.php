@@ -75,7 +75,7 @@ $imgModalFoot = '
       <?php require(__DIR__ . '/media.php'); ?>
       <?= $imgModalFoot; ?>
 
-      <form action="<?= $formUrl; ?>" method="post">
+      <form id="itemForm" action="<?= $formUrl; ?>" method="post">
         <p class="cms-thumb">
           <?php
           if ($product_imgpath !== '') {
@@ -134,7 +134,7 @@ $imgModalFoot = '
           ';
         }
         ?>
-        <p style="margin-right: 5px;"><input type="submit" class="btn btn-primary" name="<?= (!isset($_GET['product_id'])) ? 'show': 'update'; ?>" value="<?= (!isset($_GET['product_id'])) ? '公開': '更新'; ?>"></p>
+        <p class="form-btn"><input type="submit" class="btn btn-primary" name="<?= (!isset($_GET['product_id'])) ? 'show': 'update'; ?>" value="<?= (!isset($_GET['product_id'])) ? '公開': '更新'; ?>"></p>
         <?php
         if (!isset($_GET['product_id'])) {
           echo '

@@ -68,7 +68,7 @@ if (isset($_GET['cat_id'])) {
         $class = 'pager-item list-inline-item';
         if ($_GET['page'] == $pageNum) $class .= ' pager-item-current';
         $qsPage = '&page=' .  $pageNum;
-        $pageList .= '<li class="' . $class . '"><a href="itemlist.php?' . $qsCat . $qsPage . '">' . $pageNum . '</a></li>';
+        $pageList .= '<li class="' . $class . '"><a href="itemlist.php' . $qsCat . $qsPage . '">' . $pageNum . '</a></li>';
       }
       $pageList .= '<li class="pager-item list-inline-item"><a href="itemlist.php' . $qsCat . '&page=' . $allPageNum . '">最後へ</a></li>';
 

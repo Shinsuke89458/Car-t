@@ -1,6 +1,8 @@
 $(function() {
   'use strict';
 
+  console.log(location.host + '/src/images/');
+
   /* msg */
   $('.msg').fadeOut(3000);
 
@@ -12,10 +14,10 @@ $(function() {
         return 'このページを離れようとしています。';
       }
     });
-    $('form').change(function() {
+    $('form#itemForm').change(function() {
       isChanged = true;
     });
-    $('input[type="submit"]').click(function() {
+    $('form#itemForm input[type="submit"]').click(function() {
       isChanged = false;
     });
   }
@@ -49,11 +51,11 @@ $(function() {
         $('#media li').remove();
         if (location.href.match(/\/admin\/media.php/) !== null) {
           imagesList.forEach(function($value) {
-            $('#media').append('<li class="grid-item"><a href="http://192.168.33.12:8000/src/images/' + basename($value) + '" target="_blank"><img src="http://192.168.33.12:8000/src/' + $value + '" alt=""></a></li>');
+            $('#media').append('<li class="grid-item"><a href="http://' + location.host + '/src/images/' + basename($value) + '" target="_blank"><img src="http://' + location.host + '/src/' + $value + '" alt=""></a></li>');
           });
         } else {
           imagesList.forEach(function($value) {
-            $('#media').append('<li class="grid-item"><img src="http://192.168.33.12:8000/src/' + $value + '" alt=""><div class="buttonarea list-inline"><div class="list-inline-item btn btn-dark"><a href="http://192.168.33.12:8000/src/images/' + basename($value) + '" target="_blank">画像を見る</a></div><div class="list-inline-item btn btn-dark btn-imgselect">画像を選択</div></div></li>');
+            $('#media').append('<li class="grid-item"><img src="http://' + location.host + '/src/' + $value + '" alt=""><div class="buttonarea list-inline"><div class="list-inline-item btn btn-dark"><a href="http://' + location.host + '/src/images/' + basename($value) + '" target="_blank">画像を見る</a></div><div class="list-inline-item btn btn-dark btn-imgselect">画像を選択</div></div></li>');
             mediaEvent();
           });
         }
