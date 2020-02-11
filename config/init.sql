@@ -1,6 +1,6 @@
 create database cartdb;
 
-grant all on cartdb.* to dbuser@localhost identified by 'shin0622';
+grant all on cartdb.* to dbuser@localhost identified by '********';
 
 use cartdb;
 
