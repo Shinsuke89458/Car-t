@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 // DB
 define('DSN', 'mysql:dbhost=localhost;dbname=cartdb');
 define('DB_USERNAME', 'dbuser');
-define('DB_PASSWORD', 'shin0622');
+define('DB_PASSWORD', '*********');
 
 // SITE
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
